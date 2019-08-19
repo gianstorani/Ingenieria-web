@@ -19,15 +19,16 @@
                 <li><a href="#" class="nav-link">Publicar</a></li > 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if request.user.is_superuser%}  
-                    <li><a href="/admin/" class="nav-link">Administrador</a></li>
-                {% endif %}
-                
-                {% if request.user.is_authenticated %}                        
-                    <li><a href="/editarusuario/{{perfil.id}}" class="nav-link">Usuario: {{request.user.username}}</a></li>
+                {% if request.user.is_authenticated %} 
+                    {% if request.user.is_superuser%}  
+                        <li><a href="/admin/" class="nav-link">Administrador</a></li>
+                        <li><a href="/editarusuario/{{perfil.id}}" class="nav-link">Tu cuenta: {{request.user.username}}</a></li>
                     <li><a href="/logout/" class="nav-link">Salir</a></li>
+                    {% else %}                       
+                        <li><a href="/editarusuario/{{perfil.id}}" class="nav-link">Tu cuenta: {{request.user.username}}</a></li>
+                        <li><a href="/logout/" class="nav-link">Salir</a></li>
+                    {% endif %} 
                 {% else %}
-                    <li><a href="/admin/" class="nav-link">Ingresar como Admin</a></li>
                     <li><a href="/login/" class="nav-link">Ingresar</a></li>
                     <li><a href="/registrar/" class="nav-link">Registrarse</a></li>
                 {% endif %}

@@ -97,17 +97,8 @@ def nosotros(request):
 
 
 
-@login_required
-def editarusuario(request, pk):
-	if request.method =="POST":
-		usuario = User.objects.get(pk=pk)
-		form = formUsuario(request.POST, instance = usuario)
-		if form.is_valid():
-			form.save()
-			perfil = Perfil.objects.get(username= usuario)
-			formP = formPerfil(instance= perfil)
-			formU = formUsuario(instance=usuario)
-			return render(request, "editPerfil.html", {'usuario': formU, 'perfil': formP,"id":perfil.id,"idUsuario":usuario.id})
+def editarusuario(request):
+	return render(request, "editarusuario.html")
 
 
 

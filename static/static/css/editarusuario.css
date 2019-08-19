@@ -22,6 +22,11 @@ label {
     position: absolute;
     width: 900px;
 }
+
+.modal-content h3{
+    margin-top: 3%;
+}
+
 .user-img{
     margin-top: -30px;
     margin-bottom: 35px;
@@ -37,11 +42,17 @@ label {
 .form-group input{
     height: 35px;
     width: 300px;
+    padding-left: 3%;
     font-size: 18px;
     border:0;
-    padding-left: 54px;
     border-radius: 5px;
+    margin-top: 8%;
 }
+
+.form-group label {
+    position: absolute;
+}
+
 
 .form-group::before{
     font-family: "Font Awesome\ 5 Free";
@@ -68,9 +79,6 @@ button{
     margin: 5px 0 25px;
 }
 
-h3{
-    margin-top: -20px;
-}
 
 .alert{
     background-color: #a6d4f2;
