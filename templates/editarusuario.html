@@ -1,0 +1,68 @@
+{% extends 'base.html'%}
+{% load static %}
+{%load staticfiles%}
+{% block content %} 
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/editarusuario.css' %}">
+</head>
+<body>
+	{% if request.user.is_authenticated %}                        
+        <h1>Tu cuenta, {{request.user.first_name}} !!</h1>
+    {% endif %}
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
+            	<h3>Editar tus datos</h3>
+            	<form  action="/editarusuario/{{id}}/" method="post">
+		        {% csrf_token %}
+					<div class="col-md-5"> 
+			            <div class="form-group">
+			              <label>Nombre de Usuario</label>
+			              <input name="nombreUsuario" id="id_nombreUsuario" placeholder="Tu Nombre de Usuario" type="text" value="{{user.username}}">
+			            </div> 
+				        <div class="form-group">
+			              <label>Nombre</label>
+			              <input name="nombre" id="id_nombre" placeholder="Tu Nombre" type="text" value="{{user.first_name}}">
+			            </div> 
+
+			            <div class="form-group">
+			              <label>Apellido</label>
+			              <input name="apellido"id="id_apellido" placeholder="Tu Apellido" type="text" value="{{user.last_name}}">
+			            </div>
+			            <div class="form-group">
+			              <label >FechaNacimiento</label>
+			              <input style="padding-bottom: 15px;" name="fechaNacimiento" id="id_fechaNacimiento" placeholder="Tu Fecha de nacimiento" type="Date" value="{{perfil.fechaNacimiento}}">
+			            </div>
+			        </div>
+			        <div class="col-md-1">  
+			        </div>
+			        <div class="col-md-5">  
+			        	<div class="form-group">
+			              <label>Correo</label>
+			              <input name="email" id="id_email" placeholder="Tu correo" type="text" value="{{user.email}}">
+			            </div>
+			            <div class="form-group">
+			            	<label>Localidad</label>
+			                <input name="localidad" id="id_localidad" placeholder="Tu localidad de residencia" type="text" value="{{perfil.ciudad}}">
+			            </div>
+			        </div>
+			        <div align="center" margin-top= "5px">
+			        {% if messages %}
+			            <ul class="messages">
+			              {% for message in messages %}
+			                <li class="{{ message.tags }}">{{ message }}</li>
+			              {% endfor %}
+			            </ul>
+			        {% endif %}
+			        </div><button class="btn btn-primary" type="submit" name="action" value="registracion">Guardar</button> 
+			    </form>    
+		    </div>
+		</div>
+	</div>
+</body>	
+
+{% endblock %} 

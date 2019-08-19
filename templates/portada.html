@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% load static %}
+{%load staticfiles%}
+{% block navbar%} 
+{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
+<head>
+    <title>Portada</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/index.css' %}">
+</head>
+<body>
+	<div> 
+		{% if request.user.is_authenticated %}                        
+            <h1>Bienvenido a la portada, {{request.user.username}} !!</h1>
+        {% else %}
+			<h1>Bienvenido a la portada!!</h1>
+		{% endif %}
+	</div>
+</body>
+
+{% endblock %}﻿

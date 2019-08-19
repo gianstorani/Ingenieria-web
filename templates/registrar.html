@@ -1,0 +1,63 @@
+{% extends 'base.html'%}
+{% load static %}
+{%load staticfiles%}
+{% block content %} 
+{% block body%} 
+<head>
+    <title>Registro</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/register.css' %}">
+</head>
+<div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
+                <div class=" col-12 user-img">
+                    <img src="{% static 'static/img/user2.png' %}" />
+                </div>                
+			    <h3>Registro de usuario</h3>
+			    <form method="post">
+			        {% csrf_token %}
+			        <div class="col-md-5"> 
+				        <div class="form-group" id="user-group">      
+					      {{form.usuario}}
+					    </div>
+					    <div class="form-group" id="user-group">      
+					      {{form.nombre}}
+					    </div>
+					    <div class="form-group" id="user-group">    
+					      {{form.apellido}}
+					    </div>
+					</div>
+					<div class="col-md-1"> 
+					</div>
+					<div class="col-md-5"> 
+					    <div class="form-group" id="correo-group">  
+					      {{form.email}}
+					    </div>
+					    <div class="form-group" id="contrasena-group">    
+					      {{form.contraseña}}
+					    </div>
+					    <div class="form-group" id="contrasena-group">      
+					      {{form.confirmarcontraseña}}
+					    </div>
+					</div>
+			        <button type="submit" class="btn btn-primary" name="login"><i class="fas fa-sign-in-alt"></i>  Registrarse</button>
+			        <br>
+			        {% if messages %}
+				    	{% for message in messages %}
+				        <div class="alert alert-danger" role="alert">
+				        	<strong class="{{ message.tags }} alert_error">{{ message }}</strong>
+				        </div>
+				      {% endfor %}
+					{% endif %}	 			
+			    </form>  
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock%} 
+{% endblock%} 

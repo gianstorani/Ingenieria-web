@@ -1,0 +1,45 @@
+{% load staticfiles %}
+
+<html>
+<head>
+    <title>Alquilalo YA</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/index.css' %}">
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse" role="navigation" >
+        <a class="navbar-brand page-scroll" href="/portada">AlquileresYA</a>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="/nosotros">Quienes somos</a></li>
+                <li><a href="#" class="nav-link">Secciones</a></li>
+                <li><a href="#" class="nav-link">Publicar</a></li > 
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_superuser%}  
+                    <li><a href="/admin/" class="nav-link">Administrador</a></li>
+                {% endif %}
+                
+                {% if request.user.is_authenticated %}                        
+                    <li><a href="/editarusuario/{{perfil.id}}" class="nav-link">Usuario: {{request.user.username}}</a></li>
+                    <li><a href="/logout/" class="nav-link">Salir</a></li>
+                {% else %}
+                    <li><a href="/admin/" class="nav-link">Ingresar como Admin</a></li>
+                    <li><a href="/login/" class="nav-link">Ingresar</a></li>
+                    <li><a href="/registrar/" class="nav-link">Registrarse</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    
+    {% block content %}
+    
+    {% endblock %}
+
+
+
+</body>
+</html>
