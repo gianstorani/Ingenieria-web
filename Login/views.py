@@ -6,10 +6,9 @@ from .forms import RegisterForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.generic import FormView
-from django.template import RequestContext
 from django.contrib.auth.decorators import login_required	
-import hashlib, datetime, random
-import os, string
+import random
+import string
 from .models import Perfil
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404

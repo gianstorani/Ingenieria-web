@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>Alquilalo YA</title>
+    <title>AlquileresYA</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,7 +21,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %} 
                     {% if request.user.is_superuser%}  
-                        <li><a href="/admin/" class="nav-link">Administrador</a></li>
+                        <li><a href="/admin/auth/user" class="nav-link">Administrador</a></li>
                         <li><a href="/editarusuario/{{perfil.id}}" class="nav-link">Tu cuenta: {{request.user.username}}</a></li>
                     <li><a href="/logout/" class="nav-link">Salir</a></li>
                     {% else %}                       
