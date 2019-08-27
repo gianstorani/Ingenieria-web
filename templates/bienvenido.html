@@ -1,0 +1,23 @@
+{% extends 'base.html'%}
+{% load static %}
+{%load staticfiles%}
+{% block content %} 
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static 'static/css/index.css' %}">
+</head>
+<body>
+	<div> 
+		{% if request.user.is_authenticated %}                        
+            <h1>Bienvenido, {{request.user.username}} !!</h1>
+        {% endif %}
+		{% if messages %}
+		    <div class="alert alert-danger" role="alert">
+		      {% for message in messages %}
+		        <li class="{{ message.tags }} alert_error">{{ message}}</li>
+		      {% endfor %}
+		    </div>
+		{% endif %}
+	</div>
+</body>	
+
+{% endblock %} 
