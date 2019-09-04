@@ -20,6 +20,7 @@ class TipoUsuario(models.Model):
 class Perfil(models.Model):
 	direccion = models.CharField(max_length=50, null=True, blank=True)
 	direccionNumero = models.IntegerField(default=0)
+	telefonoNumero = models.IntegerField(default=0)
 	ciudad	= models.CharField(max_length=50, null=True, blank=True)
 	provincia = models.CharField(max_length=50, null=True, blank=True)
 	pais = models.CharField(max_length=50, null=True, blank=True)

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Login'
+    'Login',
+    'Sitio',
 ]
 
 MIDDLEWARE = [
@@ -131,6 +132,17 @@ LOGIN_REDIRECT_URL = '/portada'
 LOGOUT_REDIRECT_URL = '/portada/'
 
 LOGIN_URL = '/login/'
+ 
+MEDIA_URL = 'media/'  
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Advanced',
+        'width': 758,
+        'height': 300,
+    },
+}
 
 
 
