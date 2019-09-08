@@ -9,4 +9,5 @@ from .views import *
 
 urlpatterns = [
     url('nuevapublicacion/', views.nuevapublicacion, name='nuevapublicacion'),
+    url('mispublicaciones/', views.mispublicaciones, name='mispublicaciones'),
 ]

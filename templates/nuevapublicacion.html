@@ -16,42 +16,28 @@
   {% csrf_token%}
   <div class="col-md-5 main-section" > 
     <div class="form-group">         
-      <label for="Categoria">Categoria</label>
-      {{form.categoria}}
+      <label for="tipoPublicacion">Categoria</label>
+      {{form.tipoPublicacion}}
     </div>         
     <div class="form-group">      
-      <label for="titulo">Titulo de Publicación</label>
+      <label for="tituloPublicacion">Titulo de Publicación</label>
       {{form.tituloPublicacion}}
     </div> 
     <div class="form-group">           
-      <label for="localidad">Precio ($)</label>
+      <label for="precio">Precio ($)</label>
       {{form.precio}}
     </div>
     <div class="form-group" >          
-      <label for="detalle"  >Descripcion</label>
+      <label for="Contenido" >Descripcion</label>
       {{form.Contenido}}
     </div> 
   </div> 
   <div class="col-md-1"> 
   </div>              
-  <div class="col-md-5 main-section" >
-    <div class="form-group ">           
-      <label for="localidad">Localidad del producto</label>
-      {{form.localidad}}
-    </div>      
-    <div class="form-group ">           
-      <label for="provincia">Provincia del producto</label>
-      {{form.provincia}}
-    </div>  
-    <div align="center ">
-       <button class="btn btn-primary" type="submit" name="action" value="Ingresar">Publicar
-        <i class="mdi-content-send right"></i>
-      </button> 
-    </div>
-    <br> 
+  <div class="col-md-5" >   
     <div>
       <div class="col-md-5 modal-content"> 
-        <h3><b>Informacion de Contacto</b></h3>   
+        <h3><b>Información de Contacto</b></h3>   
         <div class="form-group user-section">
           <label>Nombre de Usuario:</label>
           <input name="nombreUsuario"  type="text" value="{{user.username}}" readonly="readonly">
@@ -78,8 +64,16 @@
           <input name="localidad" type="text" value="{{perfil.ciudad}}"  readonly="readonly">
         </div>               
       </div>
+    </div>  
+    <div>
+      -
+    </div> 
+    <div align="center">
+       <button class="btn btn-primary" type="submit" name="action" value="Ingresar">Publicar
+      </button> 
     </div>
-  </div>      
+  </div>
+
   <div align="center" margin-top= "5px">
     {% if messages %}
     <ul class="messages">

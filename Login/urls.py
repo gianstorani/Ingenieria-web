@@ -10,8 +10,8 @@ from django.contrib.auth.views import LoginView
 
 urlpatterns = [
 	url(r'^$', views.portada, name='portada'),
-    path('login/',  LoginView.as_view()),
-    path('portada/', views.portada, name='portada'),
+    url('login/',  LoginView.as_view()),
+    url('portada/', views.portada, name='portada'),
     url('logout/', views.logout),
     url(r'^bienvenido/(?P<activacion_token>\w+)/',views.confirmar),
     url(r'^confirmar/(?P<activacion_token>\w+)/', views.confirmar),

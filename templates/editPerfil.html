@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="row">
+<form action="/editarusuario/{{idUsuario}}/" method="POST" >
+{%csrf_token%}
+{%for cU in usuario%}
+
+  	<div class="col-sm-12 col-md-6 col-lg-4">
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">{{cU.label}}</label>
+	    {{cU}}
+	  </div>
+  	</div>
+{%endfor%}
+  	<button type="submit" class="btn btn-primary"> Guardar</button>
+</form>
+
+<form method="POST" action="/editarusuario/{{id}}/">
+{%csrf_token%}
+{%for cP in perfil%}
+  	<div class="col-sm-12 col-md-6 col-lg-4">
+	  <div class="form-group">
+	    <label >{{cP.label}}</label>
+	    {{cP}}
+	  </div>
+  	</div>
+
+{%endfor%}
+</div>	
+
+<div class="row">
+<button type="submit" class="btn btn-primary"> Guardar</button>
+</div>
+</form>
+{%endblock%}

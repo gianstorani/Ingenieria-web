@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 import random
 import string
 from .models import Perfil
+from Sitio.models import Publicacion
+from Sitio.forms import PublicacionForm
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
@@ -67,7 +69,8 @@ def registrar(request):
 
         
 def portada(request):
-    return render(request, 'portada.html')
+	lista_publicacion = Publicacion.objects.all()
+	return render(request, 'portada.html', {'lista_publicacion': lista_publicacion})
 
 
 def bienvenido(request):
@@ -97,6 +100,34 @@ def nosotros(request):
 
 
 def editarusuario(request):
+	if request.method == 'POST':
+		user_request = request.POST
+		user = get_object_or_404(User, id = request.user.id)
+		perfil = Perfil()
+
+		usuarioEncontrado = User.objects.all().filter(username=request.POST["nombreUsuario"])
+
+
+		if not usuarioEncontrado.count() == 1:
+			usuario = request.POST['nombreUsuario']
+			nombre = request.POST['nombre']
+			apellido = request.POST['apellido']
+			email  = request.POST['email']
+			localidad = request.POST['localidad']
+			fechaNacimiento = request.POST['fechaNacimiento']
+			telefonoNumero = request.POST['telefonoNumero']
+			
+			user.first_name = nombre
+			user.last_name = apellido
+			user.email = email
+			user.username = usuario
+			perfil.ciudad = localidad
+			perfil.fechaNacimiento = fechaNacimiento
+			perfil.telefonoNumero = telefonoNumero
+			
+			
+			user.save()
+			perfil.save()
 	return render(request, "editarusuario.html")
 
 
