@@ -11,54 +11,56 @@
 </head>
 <body>
 	{% if request.user.is_authenticated %}                        
-        <h1>Tu cuenta, {{request.user.first_name}} !!</h1>
+        <h1>Tu cuenta, {{request.user.first_name}} !!</h1> 
     {% endif %}
     <div class="modal-dialog text-center">
         <div class="col-sm-8 main-section">
             <div class="modal-content">
-            	<h3>Editar tus datos</h3>
-            	<form  action="/editarusuario" method="post">
+            	<h3>Datos de usuario</h3>
+            	<form  action="{% url 'editarusuario' %}" method="POST">
 		        {% csrf_token %}
 					<div class="col-md-5"> 
 			            <div class="form-group">
 			              <label>Nombre de Usuario</label>
-			              <input name="nombreUsuario"  type="text" value="{{user.username}}">
+			              <input name="nombreUsuario"  type="text" value="{{user.username}}" readonly="readonly">
 			            </div> 
 				        <div class="form-group">
 			              <label>Nombre</label>
-			              <input name="nombre"  type="text" value="{{user.first_name}}">
+			              <input name="nombre"  type="text" value="{{user.first_name}}" >
 			            </div> 
 
 			            <div class="form-group">
 			              <label>Apellido</label>
-			              <input name="apellido"type="text" value="{{user.last_name}}">
-			            </div>			            
+			              <input name="apellido"type="text" value="{{user.last_name}}" >
+			            </div>		
+			            <div class="form-group">
+			              <label>Correo</label>
+			              <input name="email"  type="text" value="{{user.email}}" required="" readonly="readonly">
+			            </div>	            
 			        </div>
 			        <div class="col-md-1">  
 			        </div>
-			        <div class="col-md-5">  
-			        	<div class="form-group">
-			              <label>Correo</label>
-			              <input name="correo"  type="text" value="{{user.email}}">
+			        <div class="col-md-5">  			        	
+			            {% for perfil in usuario|slice:":1" %}
+			            <div class="form-group">
+			              <label>Dirección</label>
+			              <input name="direccion"type="text" value="{{perfil.direccion}}" >
 			            </div>
 			            <div class="form-group">
 			            	<label>Localidad</label>
-			                <input name="localidad" type="text" value="{{perfil.ciudad}}">
+			                <input name="localidad" type="text" value="{{perfil.ciudad}}" >
 			            </div>
 			            <div class="form-group">
-			              <label >FechaNacimiento</label>
-			              <input name="fechaNacimiento" type="Date" value="{{perfil.fechaNacimiento}}">
+			            	<label>Provincia</label>
+			                <input name="provincia" type="text" value="{{perfil.provincia}}" >
 			            </div>
+			            <div class="form-group">
+				          <label>Telefono:</label>
+				          <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero}}">
+				        </div>
+				        {% endfor %}
 			        </div>
-			        <div align="center" margin-top= "5px">
-			        {% if messages %}
-			            <ul class="messages">
-			              {% for message in messages %}
-			                <li class="{{ message.tags }}">{{ message }}</li>
-			              {% endfor %}
-			            </ul>
-			        {% endif %}
-			        </div><button class="btn btn-primary" type="submit" name="action" value="">Guardar</button> 
+			        <button class="btn btn-primary" type="submit" name="action" value="Guardar">Guardar</button> 
 			    </form>    
 		    </div>
 		</div>

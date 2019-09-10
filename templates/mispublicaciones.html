@@ -12,11 +12,11 @@
 </head>
 <body>
 	<div> 
-		<h1>Buenas, {{request.user.first_name}} !! Conoce todas nuestras publicaciones</h1>
+		<h1>Conoce todas tus publicaciones</h1>
 	</div>
 	<div> 
-		{% for publicaciones in lista_publicacion %}
-		<div class="panel panel-default">
+			{% for publicaciones in mispublicaciones %}
+			<div class="panel panel-default">
    			<div class="panel-heading"><a href="{% url 'verpublicacion' pk=publicaciones.idPublicacion %}"><h3>{{ publicaciones.tituloPublicacion }}</h3></a>
    				<ul class="nav navbar-nav navbar-left">
        				<li class="mseccion"><i class="fa fa-user"></i> {{ publicaciones.idUsuarioPublicacion.username }}  
@@ -33,7 +33,7 @@
             	<h5>{{ publicaciones.Contenido }}</h5>
             </div>		            
         </div>
-		{% endfor %} 
+			{% endfor %} 
 	</div>
 </body>
 
