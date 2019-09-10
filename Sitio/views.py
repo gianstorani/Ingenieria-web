@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .forms import PublicacionForm
 from django.contrib.auth.decorators import login_required	
 from .models import Publicacion
+from Login.models import Perfil
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
@@ -36,11 +37,30 @@ def nuevapublicacion(request):
 		publicacion.save()
 	else:
 		form = PublicacionForm(request.POST)
-	return render(request, 'nuevapublicacion.html',{ 'form': form })
+
+	usuario  = []
+	_usuario = request.user.id
+	perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
+	for _perfil in perfilesUsuario:
+		usuario.append(Perfil.objects.all().last())
+
+	return render(request, 'nuevapublicacion.html',{ 'form': form ,'usuario': usuario})
 
 
-@login_required
 def mispublicaciones(request):
 	_usuario = request.user.id
 	mispublicaciones = Publicacion.objects.all().filter(idUsuarioPublicacion = _usuario)
 	return render(request, 'mispublicaciones.html', {'mispublicaciones': mispublicaciones})
+
+
+def verpublicacion(request,pk):
+	form = PublicacionForm(request.POST)
+	_idPublicacion = pk
+	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion)
+
+	usuario  = []
+	_usuario = request.user.id
+	perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
+	for _perfil in perfilesUsuario:
+		usuario.append(Perfil.objects.all().last())
+	return render(request, 'verpublicacion.html', {'publicacion': publicacion,'form': form,'usuario': usuario })

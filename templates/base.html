@@ -14,7 +14,6 @@
         <a class="navbar-brand page-scroll" href="/portada">AlquileresYA</a>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="/nosotros" class="nav-link">Quienes somos</a></li>
                 <li><a href="/nuevapublicacion" class="nav-link">Publicar Aviso!</a></li > 
                 {% if request.user.is_authenticated %} 
                     <li><a href="/mispublicaciones/{{id}}" class="nav-link">Mis publicaciones</a></li>

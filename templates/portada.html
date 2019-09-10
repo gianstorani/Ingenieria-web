@@ -16,8 +16,8 @@
 	</div>
 	<div> 
 		{% for publicaciones in lista_publicacion %}
-		<div class="panel panel-default panel-success">
-   			<div class="panel-heading"><a href="#"><h3>{{ publicaciones.tituloPublicacion }}</h3></a>
+		<div class="panel panel-default">
+   			<div class="panel-heading"><a href="{% url 'verpublicacion' pk=publicaciones.idPublicacion %}"><h3>{{ publicaciones.tituloPublicacion }}</h3></a>
    				<ul class="nav navbar-nav navbar-left">
        				<li class="mseccion"><i class="fa fa-user"></i> {{ publicaciones.idUsuarioPublicacion.username }}  
 		            </li>  

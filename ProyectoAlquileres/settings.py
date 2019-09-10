@@ -145,6 +145,10 @@ CKEDITOR_CONFIGS = {
 }
 
 
+DATE_INPUT_FORMATS = (
+    '%d/%m/%y', 
+)
+
 
 EMAIL_HOST          = 'smtp.gmail.com'
 EMAIL_HOST_USER     = 'proyecto.alquileres19@gmail.com'

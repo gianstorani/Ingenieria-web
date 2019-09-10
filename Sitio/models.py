@@ -35,7 +35,6 @@ class Publicacion(models.Model):
     estadoPublicacion = models.CharField(choices=estadoPublicacion, null=True, blank=True,max_length = 50)
     Contenido = models.TextField(blank=False)
     precio = models.TextField(blank=False)
-    provinciaPublicacion = models.TextField(blank=False)
     FechaPublicacion = models.DateField(("Date"), auto_now=True, editable = False)
     FechaBajaPublicacion = models.DateField(default= None, editable = False,null = True)
     FechaModificacionPublicacion = models.DateField(default = None, editable = False, null = True)

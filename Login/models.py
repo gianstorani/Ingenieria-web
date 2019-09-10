@@ -14,7 +14,6 @@ class Perfil(models.Model):
         ('Visitante','Visitante'),
     	)
 	direccion = models.CharField(max_length=50, null=True, blank=True)
-	direccionNumero = models.IntegerField(default=0)
 	telefonoNumero = models.CharField(max_length=50, null=True, blank=True)
 	ciudad	= models.CharField(max_length=50, null=True, blank=True)
 	provincia = models.CharField(max_length=50, null=True, blank=True)
