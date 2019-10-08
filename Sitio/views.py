@@ -1,10 +1,18 @@
 from django.shortcuts import render
 from .forms import PublicacionForm
+<<<<<<< HEAD
 from django.contrib.auth.decorators import login_required	
+=======
+from django.contrib.auth.decorators import login_required
+>>>>>>> nicolas
 from .models import Publicacion
 from Login.models import Perfil
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+<<<<<<< HEAD
+=======
+from django.http import HttpResponseRedirect
+>>>>>>> nicolas
 
 # Create your views here.
 
@@ -18,6 +26,7 @@ def nuevapublicacion(request):
 		precio = request.POST['precio']
 		Contenido = request.POST['Contenido']
 		idUsuarioPublicacion = request.user
+<<<<<<< HEAD
 		try:
 			publicacion = Publicacion(
         		tipoPublicacion = tipoPublicacion,
@@ -28,6 +37,9 @@ def nuevapublicacion(request):
         		)
 		except Exception as e:
 			publicacion = Publicacion(
+=======
+		publicacion = Publicacion(
+>>>>>>> nicolas
         		tipoPublicacion = tipoPublicacion,
         		tituloPublicacion = tituloPublicacion,
         		precio = precio,
@@ -35,8 +47,15 @@ def nuevapublicacion(request):
         		idUsuarioPublicacion = idUsuarioPublicacion
         		)
 		publicacion.save()
+<<<<<<< HEAD
 	else:
 		form = PublicacionForm(request.POST)
+=======
+		return HttpResponseRedirect("/nuevapublicacion")
+
+	else:
+		form = PublicacionForm()
+>>>>>>> nicolas
 
 	usuario  = []
 	_usuario = request.user.id
@@ -59,8 +78,15 @@ def verpublicacion(request,pk):
 	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion)
 
 	usuario  = []
+<<<<<<< HEAD
 	_usuario = request.user.id
 	perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
 	for _perfil in perfilesUsuario:
 		usuario.append(Perfil.objects.all().last())
 	return render(request, 'verpublicacion.html', {'publicacion': publicacion,'form': form,'usuario': usuario })
+=======
+	for public in publicacion:
+		_usuario = public.idUsuarioPublicacion
+	perfilesUsuario = Perfil.objects.filter(usuario = _usuario).last()
+	return render(request, 'verpublicacion.html', {'publicacion': publicacion,'form': form,'perfilesUsuario': perfilesUsuario })
+>>>>>>> nicolas

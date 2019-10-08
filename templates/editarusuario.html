@@ -40,8 +40,13 @@
 			        </div>
 			        <div class="col-md-1">  
 			        </div>
+<<<<<<< HEAD
 			        <div class="col-md-5">  			        	
 			            {% for perfil in usuario|slice:":1" %}
+=======
+			        <div class="col-md-5">  
+			        	{% for perfil in usuario|slice:":1" %}
+>>>>>>> nicolas
 			            <div class="form-group">
 			              <label>Dirección</label>
 			              <input name="direccion"type="text" value="{{perfil.direccion}}" >
@@ -58,7 +63,11 @@
 				          <label>Telefono:</label>
 				          <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero}}">
 				        </div>
+<<<<<<< HEAD
 				        {% endfor %}
+=======
+					{% endfor %}
+>>>>>>> nicolas
 			        </div>
 			        <button class="btn btn-primary" type="submit" name="action" value="Guardar">Guardar</button> 
 			    </form>    
