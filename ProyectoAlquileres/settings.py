@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import os.path
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -145,10 +146,15 @@ CKEDITOR_CONFIGS = {
 }
 
 
+DATE_INPUT_FORMATS = (
+    '%d/%m/%y', 
+)
+
 
 EMAIL_HOST          = 'smtp.gmail.com'
 EMAIL_HOST_USER     = 'proyecto.alquileres19@gmail.com'
-EMAIL_HOST_PASSWORD = 'ingenieriaweb2019'
+EMAIL_HOST_PASSWORD = 'ingenieriaweb2019...'
 EMAIL_PORT          = 587
 EMAIL_USE_TLS       = True
 DEFAULT_FROM_EMAIL  = 'AlquieresYA'
+django_heroku.settings(locals())

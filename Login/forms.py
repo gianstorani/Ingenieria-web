@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
+from django.db import models
+from .models import *
 
 
 class RegisterForm(forms.Form):
@@ -9,5 +11,6 @@ class RegisterForm(forms.Form):
     apellido = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control','placeholder': ' Apellido'}))
     email = forms.EmailField(max_length=50 , widget=forms.TextInput(attrs={'class' : 'validate form-control','placeholder': ' Correo'}))
     contraseña = forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'validate form-control','placeholder ': ' Contraseña'}))
-    confirmarcontraseña = forms.password=forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'validate form-control','placeholder': ' Confirme contraseña'}))
+    confirmarcontraseña =forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'validate form-control','placeholder': ' Confirme contraseña'}))
     
+

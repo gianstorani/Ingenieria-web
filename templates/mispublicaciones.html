@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+{% load static %}
+{%load staticfiles%}
+{% block navbar%} 
+{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
+<head>
+    <title>Portada</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/portada.css' %}">
+</head>
+<body>
+	<div> 
+		<h1>Conoce todas tus publicaciones</h1>
+	</div>
+	<div> 
+			{% for publicaciones in mispublicaciones %}
+			<div class="panel panel-default">
+   			<div class="panel-heading"><a href="{% url 'verpublicacion' pk=publicaciones.idPublicacion %}"><h3>{{ publicaciones.tituloPublicacion }}</h3></a>
+   				<ul class="nav navbar-nav navbar-left">
+       				<li class="mseccion"><i class="fa fa-user"></i> {{ publicaciones.idUsuarioPublicacion.username }}  
+		            </li>  
+		            <li class="mseccion">&nbsp&nbsp</li> 
+		            <li class="mseccion"><i class="fa fa-calendar"></i> {{ publicaciones.FechaPublicacion }}</li>
+		        </ul>
+		        <ul class="nav navbar-nav navbar-right">
+		            <li class="mseccion"><i class="fa fa-shopping-cart"></i> ${{ publicaciones.precio }}</li>
+		        </ul>
+		        <br>
+	        </div>
+           	<div class="panel-body">
+            	<h5>{{ publicaciones.Contenido }}</h5>
+            </div>		            
+        </div>
+			{% endfor %} 
+	</div>
+</body>
+
+{% endblock %}﻿

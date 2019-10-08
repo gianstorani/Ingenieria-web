@@ -6,10 +6,12 @@ from .forms import RegisterForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.generic import FormView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required	
 import random
 import string
 from .models import Perfil
+from Sitio.models import Publicacion
+from Sitio.forms import PublicacionForm
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
@@ -24,31 +26,6 @@ def logout(request):
         print(e)
     return HttpResponseRedirect("/portada/")
 
-def editarusuario(request):
-    if request.method == 'POST':
-        usuarioEncontrado = User.objects.all().filter(username = request.POST.get('usuario'))
-
-        if not usuarioEncontrado.count() > 1:
-            usuario = request.POST.get('usuario')
-            nombre = request.POST['nombre']
-            apellido = request.POST['apellido']
-            email  = request.POST['email']
-            localidad = request.POST['localidad']
-            fechaNacimiento = request.POST['fechaNacimiento']
-            telefonoNumero = request.POST['telefonoNumero']
-
-            user = User()
-            user.username = usuario
-            user.first_name = nombre
-            user.last_name = apellido
-            user.email = email
-            perfil.ciudad = localidad
-            perfil.fechaNacimiento = fechaNacimiento
-            perfil.telefonoNumero = telefonoNumero
-            user.update()
-            perfil.update()
-
-    return render(request, "editarusuario.html")
 
 def registrar(request):
 	if request.method == 'POST':
@@ -70,7 +47,7 @@ def registrar(request):
 					perfil = Perfil(usuario = user, activacion_token = token)
 
 					email_subject   = 'Confirmación de cuenta AlquileresYA!'
-					email_body      = "Hola %s, Gracias por registrarte. Para activar tu cuenta haga clíck en este link: http://127.0.0.1:8000/bienvenido/%s" % (nombre, token)
+					email_body      = "Hola %s, Gracias por registrarte. Para activar tu cuenta haga clíck en este link: https://proyalquileres.herokuapp.com/bienvenido/%s" % (nombre, token) 	
 
 					send_mail(email_subject,email_body, 'proyecto.alquileres19@gmail.com',[email] )
 
@@ -90,9 +67,10 @@ def registrar(request):
 	return render(request,'registrar.html', { 'form': form })
 
 
-
+        
 def portada(request):
-    return render(request, 'portada.html')
+	lista_publicacion = Publicacion.objects.all()
+	return render(request, 'portada.html', {'lista_publicacion': lista_publicacion})
 
 
 def bienvenido(request):
@@ -104,12 +82,12 @@ def validacionmail(request):
 def confirmar(request, activacion_token):
 	#tratar de no arrojar 404 y tirar un mensaje de token invalido
 	try:
-	    perfil_usuario = get_object_or_404(Perfil, activacion_token = activacion_token )
+	    perfil_usuario = get_object_or_404(Perfil, activacion_token = activacion_token )    
 	    user  = perfil_usuario.usuario
 	    user.is_active  = True
 	    user.save()
 	    auth_login(request,user)
-
+	    
 	except:
 		messages.error(request, "Token invalido o el mismo ya expiró")
 	return render(request, 'bienvenido.html')
@@ -121,5 +99,45 @@ def nosotros(request):
 
 
 
-#def editarusuario(request):
-#	return render(request, "editarusuario.html")
+def editarusuario(request):
+	if request.method == 'POST':
+		usuario = request.POST['nombreUsuario']
+		nombre = request.POST['nombre']
+		apellido = request.POST['apellido']
+		email  = request.POST['email']
+		localidad = request.POST['localidad']
+		telefonoNumero = request.POST['telefonoNumero']
+		direccion = request.POST['direccion']
+		provincia = request.POST['provincia']
+
+		user = get_object_or_404(User, id = request.user.id)
+		perfil = Perfil(
+				usuario = user,
+				ciudad = localidad,
+				telefonoNumero = telefonoNumero,
+				direccion = direccion,
+				provincia = provincia)
+
+		user.username = usuario
+		user.first_name = nombre
+		user.last_name = apellido
+		user.email = email
+		user.username = usuario
+			
+		user.save()
+		perfil.save()
+	usuario  = []
+	_usuario = request.user.id
+	perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
+	for _perfil in perfilesUsuario:
+		usuario.append(Perfil.objects.all().last())
+
+	return render(request, "editarusuario.html", {'usuario': usuario})
+
+
+
+
+
+
+
+

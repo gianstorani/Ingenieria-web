@@ -8,5 +8,7 @@ from .views import *
 
 
 urlpatterns = [
-    url('nuevapublicacion/', views.nuevapublicacion, name='nuevapublicacion'),
+    path('nuevapublicacion/', views.nuevapublicacion, name='nuevapublicacion'),
+    url('mispublicaciones/', views.mispublicaciones, name='mispublicaciones'),
+    url(r'^verpublicacion/(?P<pk>[0-9]+)/$', views.verpublicacion, name='verpublicacion'),
 ]

@@ -1,8 +1,8 @@
 {% extends 'base.html'%}
 {% load static %}
 {%load staticfiles%}
-{% block content %} 
-{% block body%} 
+{% block content %}
+{% block body%}
 <head>
     <title>Registro</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -14,72 +14,72 @@
 
 <form class="form-horizontal" action="{% url 'nuevapublicacion' %}" method="POST" >
   {% csrf_token%}
-  <div class="col-md-5 main-section" > 
-    <div class="form-group">         
-      <label for="Categoria">Categoria</label>
-      {{form.categoria}}
-    </div>         
-    <div class="form-group">      
-      <label for="titulo">Titulo de Publicación</label>
+  <div class="col-md-5 main-section" >
+    <div class="form-group">
+      <label for="tipoPublicacion">Categoria</label>
+      {{form.tipoPublicacion}}
+    </div>
+    <div class="form-group">
+      <label for="tituloPublicacion">Titulo de Publicación</label>
       {{form.tituloPublicacion}}
-    </div> 
-    <div class="form-group">           
-      <label for="localidad">Precio ($)</label>
+    </div>
+    <div class="form-group">
+      <label for="precio">Precio x dia ($)</label>
       {{form.precio}}
     </div>
-    <div class="form-group" >          
-      <label for="detalle"  >Descripcion</label>
+    <div class="form-group" >
+      <label for="Contenido" >Descripcion</label>
       {{form.Contenido}}
-    </div> 
-  </div> 
-  <div class="col-md-1"> 
-  </div>              
-  <div class="col-md-5 main-section" >
-    <div class="form-group ">           
-      <label for="localidad">Localidad del producto</label>
-      {{form.localidad}}
-    </div>      
-    <div class="form-group ">           
-      <label for="provincia">Provincia del producto</label>
-      {{form.provincia}}
-    </div>  
-    <div align="center ">
-       <button class="btn btn-primary" type="submit" name="action" value="Ingresar">Publicar
-        <i class="mdi-content-send right"></i>
-      </button> 
     </div>
-    <br> 
+  </div>
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-5" >
     <div>
-      <div class="col-md-5 modal-content"> 
-        <h3><b>Informacion de Contacto</b></h3>   
+      <div class="col-md-5 modal-content">
+        <h3><b>Información de Contacto</b></h3>
         <div class="form-group user-section">
           <label>Nombre de Usuario:</label>
           <input name="nombreUsuario"  type="text" value="{{user.username}}" readonly="readonly">
-        </div> 
+        </div>
         <div class="form-group">
           <label>Nombre:</label>
           <input name="nombre"  type="text" value="{{user.first_name}}"  readonly="readonly">
-        </div> 
+        </div>
 
         <div class="form-group">
           <label>Apellido:</label>
           <input name="apellido"type="text" value="{{user.last_name}}"  readonly="readonly">
-        </div>   
-        <div class="form-group">
-          <label>Telefono:</label>
-          <input name="telefonoNumero"  type="text" value="{{user.telefonoNumero}}"  readonly="readonly">
         </div>
         <div class="form-group">
           <label>Correo:</label>
           <input name="correo"  type="text" value="{{user.email}}"  readonly="readonly">
         </div>
+        {% for perfil in usuario|slice:":1" %}
+        <div class="form-group">
+          <label>Telefono:</label>
+          <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero}}"  readonly="readonly">
+        </div>
         <div class="form-group">
           <label>Localidad:</label>
           <input name="localidad" type="text" value="{{perfil.ciudad}}"  readonly="readonly">
-        </div>               
+        </div>
+        <div class="form-group">
+          <label>Provincia:</label>
+          <input name="provincia" type="text" value="{{perfil.provincia}}"  readonly="readonly">
+        </div>
+        {% endfor %}
       </div>
     </div>
-  </div>      
+    <div>
+      -
+    </div>
+    <div align="center">
+       <button class="btn btn-primary" type="submit" name="action" value="Ingresar">Publicar
+      </button>
+    </div>
+  </div>
+
   <div align="center" margin-top= "5px">
     {% if messages %}
     <ul class="messages">
@@ -91,7 +91,7 @@
   </div>
 </form>
 
-{% endblock%} 
+{% endblock%}
 
 {% endblock %}
 </html>
