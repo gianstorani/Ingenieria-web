@@ -10,5 +10,6 @@ class PublicacionForm(forms.Form):
 	Contenido = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={"rows":10, "cols":20,'class' : 'validate form-control'}))
 	localidad = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
 	provincia = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class' : 'validate form-control'}))
-	
-	
+
+class ComentarioForm(forms.Form):
+	ContenidoComentario = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={"rows":10, "cols":20,'class' : 'validate form-control'}))

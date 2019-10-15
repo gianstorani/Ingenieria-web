@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.conf import settings
-from django.urls import reverse 
+from django.urls import reverse
 
 # Create your models here.
 
@@ -51,8 +51,8 @@ class Comentario(models.Model):
     idComentario = models.AutoField(primary_key = True)
     idUsuarioComentario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     idPublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
-    contenidoComentario = models.TextField(null = True)
-    fechaComentario = models.DateField(("Date"), auto_now=True)
+    contenidoComentario = models.TextField(null = False)
+    fechaComentario = models.DateField(("Date"), auto_now_add = True)
     fechaModiComentario = models.DateField(default = None, editable = False, null = True)
     fechaBajaComentario = models.DateField(default = None, editable = False, null = True)
 
@@ -61,7 +61,7 @@ class Comentario(models.Model):
 
 class Respuesta(models.Model):
 	idComentario = models.ForeignKey(Comentario, on_delete=models.CASCADE)
-	idUsuario = models.ForeignKey(User,on_delete=models.CASCADE)	
+	idUsuario = models.ForeignKey(User,on_delete=models.CASCADE)
 	contenidoRespuesta = models.TextField(null=True,blank=True)
 	fechaBajaRespuesta = models.DateTimeField(auto_now=False, null=True, blank=True, default=None)
 	fechaAltaRespuesta = models.DateTimeField(auto_now=False, null=True, blank=True, default=None)
@@ -69,7 +69,14 @@ class Respuesta(models.Model):
 	def __str__(self):
 		return self.contenidoRespuesta
 
+class Puntaje(models.Model):
+    idPublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
+    idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    RATING_CHOICES = ((1, 'uno'), (2, 'dos'), (3, 'tres'), (4, 'cuatro'), (5, 'cinco'))
+    #puntos = models.PositiveSmallIntegerField('Rating (stars)', null=True, blank=True, choices=RATING_CHOICES)
 
+    def __str__(self):
+        return self.contenidoPuntaje
 
 class Denuncia(models.Model):
     idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -79,6 +86,6 @@ class Denuncia(models.Model):
     fechaBajaDenuncia = models.DateTimeField(null=True, blank=True)
     motivoBaja = models.CharField(max_length=200, null=True, blank=True)
 
-   
+
     def __str__(self):
         return self.contenidoComentario

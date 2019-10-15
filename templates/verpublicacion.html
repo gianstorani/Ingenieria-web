@@ -1,13 +1,8 @@
 {% extends 'base.html'%}
 {% load static %}
 {%load staticfiles%}
-<<<<<<< HEAD
-{% block content %} 
-{% block body%} 
-=======
 {% block content %}
 {% block body%}
->>>>>>> nicolas
 <head>
     <title>Registro</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -17,82 +12,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/nuevapublicacion.css' %}">
 </head>
 
-<<<<<<< HEAD
+<div class="row">
 <form class="form-horizontal"  method="GET" >
-  {% csrf_token%}
-  {% for public in publicacion%}
-  <div class="col-md-5 main-section" > 
-    <div class="form-group">         
-      <label for="tipoPublicacion">Categoria</label>
-      <br>
-      <input name="tipoPublicacion"  type="text" value="{{public.tipoPublicacion}}" readonly="readonly">
-    </div>         
-    <div class="form-group">      
-      <label for="tituloPublicacion">Titulo de Publicación</label>  
-      <br>    
-      <input name="tituloPublicacion"  type="text" value="{{public.tituloPublicacion}}" readonly="readonly">
-    </div> 
-    <div class="form-group">           
-      <label for="precio">Precio ($)</label>     
-      <br> 
-      <input name="precio"  type="text" value="{{public.precio}}" readonly="readonly">
-    </div>
-    <div class="form-group" >          
-      <label for="Contenido" >Descripcion</label>    
-      <br>
-      <textarea name="Contenido" type="text" readonly="readonly" style="width: 100%; height: 40%; font-size: 16">
-        {{public.Contenido}}
-      </textarea>
-    </div> 
-  </div> 
-  <div class="col-md-1"> 
-  </div>              
-  <div class="col-md-5" >   
-    <div>
-      <div class="col-md-5 modal-content"> 
-        <h3><b>Información de Contacto</b></h3>   
-        <div class="form-group user-section">
-          <label>Nombre de Usuario:</label>
-          <input name="nombreUsuario"  type="text" value="{{user.username}}" readonly="readonly">
-        </div> 
-        <div class="form-group">
-          <label>Nombre:</label>
-          <input name="nombre"  type="text" value="{{user.first_name}}"  readonly="readonly">
-        </div> 
-
-        <div class="form-group">
-          <label>Apellido:</label>
-          <input name="apellido"type="text" value="{{user.last_name}}"  readonly="readonly">
-        </div>   
-        <div class="form-group">
-          <label>Correo:</label>
-          <input name="correo"  type="text" value="{{user.email}}"  readonly="readonly">
-        </div>
-        {% for perfil in usuario|slice:":1" %}
-        <div class="form-group">
-          <label>Telefono:</label>
-          <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero}}"  readonly="readonly">
-        </div>
-        <div class="form-group">
-          <label>Localidad:</label>
-          <input name="localidad" type="text" value="{{perfil.ciudad}}"  readonly="readonly">
-        </div> 
-        <div class="form-group">
-          <label>Provincia:</label>
-          <input name="provincia" type="text" value="{{perfil.provincia}}"  readonly="readonly">
-        </div> 
-        {% endfor %}               
-      </div>
-    </div>
-    {% endfor %}   
-</form>
-
-{% endblock%} 
-
-{% endblock %}
-</html>
-=======
-<form <form class="form-horizontal"  method="GET" >
   {% csrf_token%}
   {% for public in publicacion%}
   <div class="col-md-5 main-section" >
@@ -118,7 +39,13 @@
         {{public.Contenido}}
       </textarea>
     </div>
+    <div align="center">
+<!--      <form  action="{% url 'editarusuario' %}" method="POST">
+    {% csrf_token %}
+    </form>   -->
+    </div>
   </div>
+
   <div class="col-md-1">
   </div>
   <div class="col-md-5" >
@@ -158,9 +85,28 @@
     </div>
     {% endfor %}
 </form>
+</div>
+
+<div class="row">
+{% for public in publicacion%}
+<form class="form-horizontal"  action="{% url 'verpublicacion' public.idPublicacion %}" method="POST" >
+  {% csrf_token%}
+  <div class="col-md-5 main-section" >
+    <div class="form-group">
+      <label for="contenidoComentario">Deja un comentario:</label>
+      <br>
+      {{form.ContenidoComentario}}
+    </div>
+    <div align="center">
+      <button class="btn btn-primary" type="submit" name="action" value="Publicar">Publicar Comentario
+      </button>
+    </div>
+  </div>
+</form>
+{% endfor %}
+</div>
 
 {% endblock%}
 
 {% endblock %}
 </html>
->>>>>>> nicolas

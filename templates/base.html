@@ -14,17 +14,10 @@
         <a class="navbar-brand page-scroll" href="/portada">AlquileresYA</a>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
-<<<<<<< HEAD
-                <li><a href="/nuevapublicacion" class="nav-link">Publicar Aviso!</a></li > 
-                {% if request.user.is_authenticated %} 
-                    <li><a href="/mispublicaciones/{{id}}" class="nav-link">Mis publicaciones</a></li>
-                {% endif %} 
-=======
                 <li><a href="/nuevapublicacion" class="nav-link">Publicar Aviso!</a></li >
                 {% if request.user.is_authenticated %}
                     <li><a href="/mispublicaciones/{{id}}" class="nav-link">Mis publicaciones</a></li>
                 {% endif %}
->>>>>>> nicolas
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
@@ -33,10 +26,6 @@
                         <li><a href="/editarusuario/{{id}}" class="nav-link">Tu cuenta: {{request.user.username}}</a></li>
                     <li><a href="/logout/" class="nav-link">Salir</a></li>
                     {% else %}
-<<<<<<< HEAD
-                        <li><a href="#" class="nav-link">Mis publicaciones</a></li>                       
-=======
->>>>>>> nicolas
                         <li><a href="/editarusuario/" class="nav-link">Tu cuenta: {{request.user.username}}</a></li>
                         <li><a href="/logout/" class="nav-link">Salir</a></li>
                     {% endif %}

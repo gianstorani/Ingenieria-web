@@ -1,18 +1,11 @@
 from django.shortcuts import render
-from .forms import PublicacionForm
-<<<<<<< HEAD
-from django.contrib.auth.decorators import login_required	
-=======
+from .forms import PublicacionForm, ComentarioForm
 from django.contrib.auth.decorators import login_required
->>>>>>> nicolas
-from .models import Publicacion
+from .models import Publicacion, Comentario
 from Login.models import Perfil
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-<<<<<<< HEAD
-=======
 from django.http import HttpResponseRedirect
->>>>>>> nicolas
 
 # Create your views here.
 
@@ -26,20 +19,7 @@ def nuevapublicacion(request):
 		precio = request.POST['precio']
 		Contenido = request.POST['Contenido']
 		idUsuarioPublicacion = request.user
-<<<<<<< HEAD
-		try:
-			publicacion = Publicacion(
-        		tipoPublicacion = tipoPublicacion,
-        		tituloPublicacion = tituloPublicacion,
-        		precio = precio,
-        		Contenido = Contenido,
-        		idUsuarioPublicacion = idUsuarioPublicacion
-        		)
-		except Exception as e:
-			publicacion = Publicacion(
-=======
 		publicacion = Publicacion(
->>>>>>> nicolas
         		tipoPublicacion = tipoPublicacion,
         		tituloPublicacion = tituloPublicacion,
         		precio = precio,
@@ -47,15 +27,10 @@ def nuevapublicacion(request):
         		idUsuarioPublicacion = idUsuarioPublicacion
         		)
 		publicacion.save()
-<<<<<<< HEAD
-	else:
-		form = PublicacionForm(request.POST)
-=======
-		return HttpResponseRedirect("/nuevapublicacion")
+		return HttpResponseRedirect("/mispublicaciones")
 
 	else:
 		form = PublicacionForm()
->>>>>>> nicolas
 
 	usuario  = []
 	_usuario = request.user.id
@@ -65,6 +40,10 @@ def nuevapublicacion(request):
 
 	return render(request, 'nuevapublicacion.html',{ 'form': form ,'usuario': usuario})
 
+def portada(request):
+	lista_publicacion = Publicacion.objects.all()
+	return render(request, 'portada.html', {'lista_publicacion' : lista_publicacion})
+
 
 def mispublicaciones(request):
 	_usuario = request.user.id
@@ -73,20 +52,30 @@ def mispublicaciones(request):
 
 
 def verpublicacion(request,pk):
-	form = PublicacionForm(request.POST)
 	_idPublicacion = pk
 	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion)
 
-	usuario  = []
-<<<<<<< HEAD
-	_usuario = request.user.id
-	perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
-	for _perfil in perfilesUsuario:
-		usuario.append(Perfil.objects.all().last())
-	return render(request, 'verpublicacion.html', {'publicacion': publicacion,'form': form,'usuario': usuario })
-=======
-	for public in publicacion:
-		_usuario = public.idUsuarioPublicacion
-	perfilesUsuario = Perfil.objects.filter(usuario = _usuario).last()
-	return render(request, 'verpublicacion.html', {'publicacion': publicacion,'form': form,'perfilesUsuario': perfilesUsuario })
->>>>>>> nicolas
+	if request.method == 'POST':
+		model = Comentario
+		contenidoComentario = request.POST.get('ContenidoComentario')
+		idUsuarioComentario = request.user
+		for public in publicacion:
+			comentario = Comentario(
+				    idUsuarioComentario = idUsuarioComentario,
+				    idPublicacion = public,
+				    contenidoComentario = contenidoComentario
+	        		)
+			comentario.save()
+		return HttpResponseRedirect("/mispublicaciones")
+
+	else:
+
+		form = ComentarioForm()
+
+		usuario  = []
+		for public in publicacion:
+			_usuario = public.idUsuarioPublicacion
+		perfilesUsuario = Perfil.objects.filter(usuario = _usuario).last()
+
+	#return render(request, 'verpublicacion.html', {'publicacion': publicacion,'form': form,'perfilesUsuario': perfilesUsuario })
+	return render(request, 'verpublicacion.html', {'publicacion': publicacion, 'form': form, 'perfilesUsuario': perfilesUsuario })
