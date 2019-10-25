@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import os.path
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -134,7 +133,7 @@ LOGOUT_REDIRECT_URL = '/portada/'
 
 LOGIN_URL = '/login/'
  
-MEDIA_URL = 'media/'  
+#MEDIA_URL = 'media/'  
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
 CKEDITOR_CONFIGS = {
@@ -150,11 +149,12 @@ DATE_INPUT_FORMATS = (
     '%d/%m/%y', 
 )
 
-
 EMAIL_HOST          = 'smtp.gmail.com'
-EMAIL_HOST_USER     = 'proyecto.alquileres19@gmail.com'
-EMAIL_HOST_PASSWORD = 'ingenieriaweb2019...'
+EMAIL_HOST_USER     = 'yaalquileres@gmail.com'
+EMAIL_HOST_PASSWORD = 'seia2019'
 EMAIL_PORT          = 587
 EMAIL_USE_TLS       = True
 DEFAULT_FROM_EMAIL  = 'AlquieresYA'
-django_heroku.settings(locals())
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

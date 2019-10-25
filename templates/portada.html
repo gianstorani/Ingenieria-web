@@ -1,9 +1,9 @@
 {% extends 'base.html'%}
 {% load static %}
 {%load staticfiles%}
-{% block navbar%}
-{% endblock %}
-{% block content %}
+{% block navbar%} 
+{% endblock %} 
+{% block content %} 
 {% load staticfiles %}
 <head>
     <title>Portada</title>
@@ -11,25 +11,17 @@
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/portada.css' %}">
 </head>
 <body>
-	<div>
-
-<!-- <<<<<<< HEAD
+	<div> 
 		<h1>Buenas, {{request.user.first_name}} !! Conoce todas nuestras publicaciones</h1>
-=======
-		<h1>Buenas!! Conoce todas nuestras publicaciones</h1>
->>>>>>> nicolas -->
-<h1>Buenas, {{request.user.first_name}} !! Conoce todas nuestras publicaciones</h1>
-{% csrf_token %}
 	</div>
-
-	<div>
+	<div> 
 		{% for publicaciones in lista_publicacion %}
 		<div class="panel panel-default">
    			<div class="panel-heading"><a href="{% url 'verpublicacion' pk=publicaciones.idPublicacion %}"><h3>{{ publicaciones.tituloPublicacion }}</h3></a>
    				<ul class="nav navbar-nav navbar-left">
-       				<li class="mseccion"><i class="fa fa-user"></i> {{ publicaciones.idUsuarioPublicacion.username }}
-		            </li>
-		            <li class="mseccion">&nbsp&nbsp</li>
+       				<li class="mseccion"><i class="fa fa-user"></i> {{ publicaciones.idUsuarioPublicacion.username }}  
+		            </li>  
+		            <li class="mseccion">&nbsp&nbsp</li> 
 		            <li class="mseccion"><i class="fa fa-calendar"></i> {{ publicaciones.FechaPublicacion }}</li>
 		        </ul>
 		        <ul class="nav navbar-nav navbar-right">
@@ -39,9 +31,9 @@
 	        </div>
            	<div class="panel-body">
             	<h5>{{ publicaciones.Contenido }}</h5>
-            </div>
+            </div>		            
         </div>
-		{% endfor %}
+		{% endfor %} 
 	</div>
 </body>
 
