@@ -38,7 +38,8 @@ class Publicacion(models.Model):
     FechaPublicacion = models.DateField(("Date"), auto_now=True, editable = False)
     FechaBajaPublicacion = models.DateField(default= None, editable = False,null = True)
     FechaModificacionPublicacion = models.DateField(default = None, editable = False, null = True)
-
+    imagen = models.ImageField(upload_to='images/', null=True, blank=True, default='#')
+    
     def __str__(self):
         return (self.tituloPublicacion)
 

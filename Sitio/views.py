@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import PublicacionForm, ComentarioForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required	
 from .models import Publicacion, Comentario
 from Login.models import Perfil
 from django.contrib.auth.models import User
@@ -19,18 +19,24 @@ def nuevapublicacion(request):
 		precio = request.POST['precio']
 		Contenido = request.POST['Contenido']
 		idUsuarioPublicacion = request.user
+		imagen = request.FILES['imagen']
 		publicacion = Publicacion(
-        		tipoPublicacion = tipoPublicacion,
-        		tituloPublicacion = tituloPublicacion,
-        		precio = precio,
-        		Contenido = Contenido,
-        		idUsuarioPublicacion = idUsuarioPublicacion
-        		)
+			imagen=imagen, 
+			tipoPublicacion = tipoPublicacion,
+			tituloPublicacion = tituloPublicacion, 
+			precio = precio,
+			Contenido = Contenido, 
+			idUsuarioPublicacion = idUsuarioPublicacion
+        )
 		publicacion.save()
-		return HttpResponseRedirect("/mispublicaciones")
 
+		# return HttpResponseRedirect("/mispublicaciones")
+
+		_usuario = request.user.id
+		mispublicaciones = Publicacion.objects.all().filter(idUsuarioPublicacion = _usuario)
+		return render(request, 'mispublicaciones.html', {'mispublicaciones': mispublicaciones})
 	else:
-		form = PublicacionForm()
+		form = PublicacionForm(request.POST)
 
 	usuario  = []
 	_usuario = request.user.id
@@ -52,9 +58,10 @@ def mispublicaciones(request):
 
 
 def verpublicacion(request,pk):
+	form = PublicacionForm(request.POST)
 	_idPublicacion = pk
 	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion)
-
+ 
 	if request.method == 'POST':
 		model = Comentario
 		contenidoComentario = request.POST.get('ContenidoComentario')
@@ -78,4 +85,11 @@ def verpublicacion(request,pk):
 		perfilesUsuario = Perfil.objects.filter(usuario = _usuario).last()
 
 	#return render(request, 'verpublicacion.html', {'publicacion': publicacion,'form': form,'perfilesUsuario': perfilesUsuario })
-	return render(request, 'verpublicacion.html', {'publicacion': publicacion, 'form': form, 'perfilesUsuario': perfilesUsuario })
+	#return render(request, 'verpublicacion.html', {'publicacion': publicacion, 'form': form, 'perfilesUsuario': perfilesUsuario })
+
+	usuario  = []
+	_usuario = request.user.id
+	perfilesUsuario = Perfil.objects.all().filter(usuario = _usuario)
+	for _perfil in perfilesUsuario:
+		usuario.append(Perfil.objects.all().last())
+	return render(request, 'verpublicacion.html', {'publicacion': publicacion,'form': form,'usuario': usuario })

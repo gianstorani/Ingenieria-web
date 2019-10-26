@@ -6,7 +6,7 @@ from .forms import RegisterForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.generic import FormView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required	
 import random
 import string
 from .models import Perfil
@@ -47,8 +47,8 @@ def registrar(request):
 					perfil = Perfil(usuario = user, activacion_token = token)
 
 					email_subject   = 'Confirmación de cuenta AlquileresYA!'
-					email_body      = "Hola %s, Gracias por registrarte. Para activar tu cuenta haga clíck en este link: https://proyalquileres.herokuapp.com/bienvenido/%s" % (nombre, token)
-
+                                        email_body      = "Hola %s, Gracias por registrarte. Para activar tu cuenta haga clíck en este link: https://proyalquileres.herokuapp.com/bienvenido/%s" % (nombre, token)
+                                        
 					send_mail(email_subject,email_body, 'proyecto.alquileres19@gmail.com',[email] )
 
 					user.save()
@@ -67,9 +67,10 @@ def registrar(request):
 	return render(request,'registrar.html', { 'form': form })
 
 
-
-#def portada(request):
-#    return render(request, 'portada.html')
+        
+def portada(request):
+	lista_publicacion = Publicacion.objects.all()
+	return render(request, 'portada.html', {'lista_publicacion': lista_publicacion})
 
 
 def bienvenido(request):
@@ -81,12 +82,12 @@ def validacionmail(request):
 def confirmar(request, activacion_token):
 	#tratar de no arrojar 404 y tirar un mensaje de token invalido
 	try:
-	    perfil_usuario = get_object_or_404(Perfil, activacion_token = activacion_token )
+	    perfil_usuario = get_object_or_404(Perfil, activacion_token = activacion_token )    
 	    user  = perfil_usuario.usuario
 	    user.is_active  = True
 	    user.save()
 	    auth_login(request,user)
-
+	    
 	except:
 		messages.error(request, "Token invalido o el mismo ya expiró")
 	return render(request, 'bienvenido.html')
@@ -122,7 +123,7 @@ def editarusuario(request):
 		user.last_name = apellido
 		user.email = email
 		user.username = usuario
-
+			
 		user.save()
 		perfil.save()
 	usuario  = []
@@ -132,3 +133,11 @@ def editarusuario(request):
 		usuario.append(Perfil.objects.all().last())
 
 	return render(request, "editarusuario.html", {'usuario': usuario})
+
+
+
+
+
+
+
+
