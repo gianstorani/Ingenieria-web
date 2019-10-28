@@ -47,7 +47,7 @@ def registrar(request):
 					perfil = Perfil(usuario = user, activacion_token = token)
 
 					email_subject   = 'Confirmación de cuenta AlquileresYA!'
-                                        email_body      = "Hola %s, Gracias por registrarte. Para activar tu cuenta haga clíck en este link: https://proyalquileres.herokuapp.com/bienvenido/%s" % (nombre, token)
+					email_body      = "Hola %s, Gracias por registrarte. Para activar tu cuenta haga clíck en este link: https://proyalquileres.herokuapp.com/bienvenido/%s" % (nombre, token)
                                         
 					send_mail(email_subject,email_body, 'proyecto.alquileres19@gmail.com',[email] )
 

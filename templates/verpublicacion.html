@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/nuevapublicacion.css' %}">
 </head>
 
-<div class='row'>
+
 <form class="formhorizontal"  method="GET" >
   {% csrf_token%}
   {% for public in publicacion%}
@@ -42,10 +42,8 @@
     <div class="formgroup">
       <label for="image" >Imagen</label>    
       <br>
-
       <img src="/media/{{public.imagen}}" alt="image">
     </div> 
-
   </div> 
   <div class="colmd1"> 
   </div>              
@@ -83,14 +81,12 @@
           <label>Provincia:</label>
           <input name="provincia" type="text" value="{{perfil.provincia}}"  readonly="readonly">
         </div> 
-        {% endfor %}               
+        {% endfor %}
       </div>
     </div>
     {% endfor %}
 </form>
-</div>
 
-<div class="row">
 {% for public in publicacion%}
 <form class="formhorizontal"  action="{% url 'verpublicacion' public.idPublicacion %}" method="POST" >
   {% csrf_token%}
