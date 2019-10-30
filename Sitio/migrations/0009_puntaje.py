@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('Sitio', '0008_remove_publicacion_provinciapublicacion'),
+        ('Sitio', '0010_auto_20191007_1627'),
     ]
 
     operations = [
