@@ -18,25 +18,29 @@
 =======
 		<h1>Buenas!! Conoce todas nuestras publicaciones</h1>
 >>>>>>> nicolas -->
-<h1>Buenas, {{request.user.first_name}} !! Conoce todas nuestras publicaciones</h1>
+<h1>Hola {{request.user.first_name}}!! Conoce todas nuestras publicaciones</h1>
 {% csrf_token %}
 	</div>
 
 	<div>
 		{% for publicaciones in lista_publicacion %}
 		<div class="panel panel-default">
+
    			<div class="panel-heading"><a href="{% url 'verpublicacion' pk=publicaciones.idPublicacion %}"><h3>{{ publicaciones.tituloPublicacion }}</h3></a>
-   				<ul class="nav navbar-nav navbar-left">
+
+        	<ul class="nav navbar-nav navbar-left">
        				<li class="mseccion"><i class="fa fa-user"></i> {{ publicaciones.idUsuarioPublicacion.username }}
 		            </li>
 		            <li class="mseccion">&nbsp&nbsp</li>
 		            <li class="mseccion"><i class="fa fa-calendar"></i> {{ publicaciones.FechaPublicacion }}</li>
 		        </ul>
+
 		        <ul class="nav navbar-nav navbar-right">
 		            <li class="mseccion"><i class="fa fa-shopping-cart"></i> ${{ publicaciones.precio }}</li>
 		        </ul>
 		        <br>
 	        </div>
+
            	<div class="panel-body">
             	<h5>{{ publicaciones.Contenido }}</h5>
             </div>

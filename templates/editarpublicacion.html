@@ -10,10 +10,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'static/css/nuevapublicacion.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/editarpublicacion.css' %}">
 </head>
 
-<form class="form-horizontal" action="{% url 'nuevapublicacion' %}" method="POST" enctype="multipart/form-data">
+<form class="form-horizontal" action="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}" method="POST" enctype="multipart/form-data">
   {% csrf_token%}
   <div class="col-md-5 main-section" >
     <div class="form-group">
@@ -22,18 +22,17 @@
     </div>
     <div class="form-group">
       <label for="tituloPublicacion">Titulo de Publicación</label>
-      {{form.tituloPublicacion}}
+      <input name="tituloPublicacion"  type="text" value="{{publicacion.tituloPublicacion}}">
     </div>
     <div class="form-group">
       <label for="precio">Precio ($ por día)</label>
-      {{form.precio}}
+      <input name="precio"  type="text" value="{{publicacion.precio}}">
     </div>
-    <div class="form-group" >
-      <label for="Contenido" >Descripcion</label>
-      {{form.Contenido}}
+    <div class="form-group"for="Contenido" >Descripcion</label>
+      <input name="contenido"  type="text" value="{{publicacion.contenido}}">
     </div>
-    <div class="form-group" >
-      <p><input id="id_image" type="file" class="" name="imagen"></p>
+    <div class="form-group"for="Imagen" >Imágenes</label> >
+      <img src="/media/{{publicacion.imagen}}" class="thumbnail" alt="image">
     </div>
   </div>
   <div class="col-md-1">
@@ -79,7 +78,7 @@
 
     </div>
     <div align="center">
-       <button class="btn btn-primary" type="submit" name="action" value="Ingresar">Publicar
+       <button class="btn btn-primary" type="submit" name="action" value="Ingresar">Guardar Cambios!
       </button>
     </div>
   </div>
@@ -94,7 +93,6 @@
     {% endif %}
   </div>
 </form>
-
 {% endblock%}
 
 {% endblock %}

@@ -84,3 +84,31 @@ def verpublicacion(request,pk):
 
 		return render(request, 'verpublicacion.html',
 		{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})
+
+def editarpublicacion(request,pk):
+	model = Publicacion
+	form = PublicacionForm(request.POST)
+	_idPublicacion = pk
+	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
+
+	if request.method == 'POST':
+		form = PublicacionForm(request.POST)
+		tipoPublicacion = request.POST['tipoPublicacion']
+		tituloPublicacion = request.POST['tituloPublicacion']
+		precio = request.POST['precio']
+		contenido = request.POST['contenido']
+
+		publicacion.tipoPublicacion = tipoPublicacion
+		publicacion.tituloPublicacion = tituloPublicacion
+		publicacion.precio = precio
+		publicacion.contenido = contenido
+		publicacion.save()
+
+		return HttpResponseRedirect('/editarpublicacion/%s' %pk  )
+
+	else:
+		usuario = publicacion.idUsuarioPublicacion
+		perfilUsuario = Perfil.objects.all().filter(usuario = usuario).first()
+
+	return render(request, 'editarpublicacion.html',
+	{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})

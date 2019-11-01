@@ -3,6 +3,7 @@
 {%load staticfiles%}
 {% block content %}
 {% block body%}
+
 <head>
     <title>Registro</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -13,108 +14,171 @@
 </head>
 
 <div class="container-fluid">
-<div class="row">
-<form class="form-horizontal"  method="GET" >
-  {% csrf_token%}
-    <div class="col-md-5 main-section" >
-    <div class="form-group">
-      <label for="tipoPublicacion">Categoría</label>
-      <br>
-      <input name="tipoPublicacion"  type="text" value="{{publicacion.tipoPublicacion}}" readonly="readonly">
-    </div>
-    <div class="form-group">
-      <label for="tituloPublicacion">Titulo de Publicación</label>
-      <br>
-      <input name="tituloPublicacion"  type="text" value="{{publicacion.tituloPublicacion}}" readonly="readonly">
-    </div>
-    <div class="form-group">
-      <label for="precio">Precio por Día ($)</label>
-      <br>
-      <input name="precio"  type="text" value="{{publicacion.precio}}" readonly="readonly">
-    </div>
-    <div class="form-group">
-      <label for="Contenido" >Descripción</label>
-      <br>
-      <textarea name="Contenido" type="text" readonly="readonly" style="width: 100%; height: 40%; fontsize: 16">
-        {{publicacion.Contenido}}
-      </textarea>
-    </div>
-    <div class="form-group">
-      <label for="image" >Imagen</label>
-      <br>
-      <img src="/media/{{publicacion.imagen}}" class="thumbnail" alt="image">
-    </div>
-  </div>
-  <div class="col-md-1">
-  </div>
-  <div class="col-md-5" >
-    <div>
-      <div class="col-md-5 modal-content">
-        <h3><b>Información de Contacto</b></h3>
-        <div class="form-group user-section">
-          <label>Nombre de Usuario:</label>
-          <input name="nombreUsuario"  type="text" value="{{user.username}}" readonly="readonly">
-        </div>
-        <div class="form-group">
-          <label>Nombre:</label>
-          <input name="nombre"  type="text" value="{{user.first_name}}"  readonly="readonly">
-        </div>
-        <div class="form-group">
-          <label>Apellido:</label>
-          <input name="apellido"type="text" value="{{user.last_name}}"  readonly="readonly">
-        </div>
-        <div class="form-group">
-          <label>Correo:</label>
-          <input name="correo"  type="text" value="{{user.email}}"  readonly="readonly">
-        </div>
-        <div class="form-group">
-          <label>Telefono:</label>
-          <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero}}"  readonly="readonly">
-        </div>
-        <div class="form-group">
-          <label>Localidad:</label>
-          <input name="localidad" type="text" value="{{perfil.ciudad}}"  readonly="readonly">
-        </div>
-        <div class="form-group">
-          <label>Provincia:</label>
-          <input name="provincia" type="text" value="{{perfil.provincia}}"  readonly="readonly">
-        </div>
-      </div>
-    </div>
-</form>
-</div>
-</div>
-
-<div class="container-fluid">
   <div class="row">
-    {% for comentario in publicacion.comentario_set.all%}
-    <div class="box box-success" style="border-radius": 10px>
-      {{comentario.contenidoComentario}}
-    </div>
-    {% for respuesta in comentario.respuesta_set.all%}
-      <div class="box box-success" style="border-radius": 10px>
-        {{respuesta.contenidoRespuesta}}
+    <form class="form-horizontal"  method="GET" >
+      {% csrf_token%}
+        <div class="col-md-5 main-section" >
+        <div class="form-group">
+          <label for="tipoPublicacion">Categoría</label>
+          <br>
+          <input name="tipoPublicacion"  type="text" value="{{publicacion.tipoPublicacion}}" readonly="readonly">
+        </div>
+        <div class="form-group">
+          <label for="tituloPublicacion">Titulo de Publicación</label>
+          <br>
+          <input name="tituloPublicacion"  type="text" value="{{publicacion.tituloPublicacion}}" readonly="readonly">
+        </div>
+        <div class="form-group">
+          <label for="precio">Precio por Día ($)</label>
+          <br>
+          <input name="precio"  type="text" value="{{publicacion.precio}}" readonly="readonly">
+        </div>
+        <div class="form-group">
+          <label for="Contenido" >Descripción</label>
+          <br>
+          <textarea name="Contenido" type="text" readonly="readonly" style="width: 100%; height: 40%; fontsize: 16">
+            {{publicacion.Contenido}}
+          </textarea>
+        </div>
+        <div class="form-group">
+          <label for="image" >Imagen</label>
+          <br>
+          <img src="/media/{{publicacion.imagen}}" class="thumbnail" alt="image">
+        </div>
+        <button class="btn btnprimary" name="action" value="EditarPublicacion"><a href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
+
+
       </div>
-    {% endfor %}
-    {% endfor %}
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-5" >
+        <div>
+          <div class="col-md-5 modal-content">
+            <h3><b>Información de Contacto</b></h3>
+            <div class="form-group user-section">
+              <label>Nombre de Usuario:</label>
+              <input name="nombreUsuario"  type="text" value="{{user.username}}" readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label>Nombre:</label>
+              <input name="nombre"  type="text" value="{{user.first_name}}"  readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label>Apellido:</label>
+              <input name="apellido"type="text" value="{{user.last_name}}"  readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label>Correo:</label>
+              <input name="correo"  type="text" value="{{user.email}}"  readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label>Telefono:</label>
+              <input name="telefonoNumero"  type="text" value="{{perfil.telefonoNumero}}"  readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label>Localidad:</label>
+              <input name="localidad" type="text" value="{{perfil.ciudad}}"  readonly="readonly">
+            </div>
+            <div class="form-group">
+              <label>Provincia:</label>
+              <input name="provincia" type="text" value="{{perfil.provincia}}"  readonly="readonly">
+            </div>
+          </div>
+        </div>
+    </form>
   </div>
 </div>
 
-<form class="form-horizontal"  action="{% url 'verpublicacion' publicacion.idPublicacion %}" method="POST" >
-  {% csrf_token%}
-  <div class="col-md-5 main-section" >
-    <div class="form-group">
-      <label for="contenidoComentario">Deja un comentario:</label>
+
+{% for comentario in publicacion.comentario_set.all%}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <ul class="nav navbar-nav navbar-left">
+        <li class="mseccion"><i class="fa fa-user"></i> {{ comentario.idUsuarioComentario.username }}</li>
+        <li class="mseccion">&nbsp&nbsp</li> <!-- dejar o sacar? -->
+        <li class="mseccion"><i class="fa fa-calendar"></i> {{ comentario.fechaComentario }}</li>
+      </ul>
       <br>
-      {{form.ContenidoComentario}}
     </div>
-    <div align="center">
-      <button class="btn btnprimary" type="submit" name="action" value="Publicar">Publicar Comentario
-      </button>
+    <div class="panel-body">
+      <h5>{{ comentario.contenidoComentario }}</h5>
+    </div>
+    <div class="panel-footer">
+      <ul class= "nav navbar-nav navbar-right">
+        <li class=mseccion><label>label</label></li>
+      </ul>
     </div>
   </div>
-</form>
+{% for respuesta in comentario.respuesta_set.all%}
+  <label>label</label>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <ul class="nav navbar-nav navbar-left">
+        <li class="mseccion"><i class="fa fa-user"></i> {{ respuesta.idUsuario.username }}</li>
+        <li class="mseccion">&nbsp&nbsp</li> <!-- dejar o sacar? -->
+        <li class="mseccion"><i class="fa fa-calendar"></i> {{ respuesta.fechaAltaRespuesta }}</li>
+      </ul>
+      <br>
+    </div>
+    <div class="panel-body">
+      <h5>{{ respuesta.contenidoRespuesta }}</h5>
+    </div>
+  </div>
+{% endfor %}
+{% endfor %}
+
+
+<div class="panel panel-default">
+  <div class="panel-heading"><h3>{{ comentario.idUsuarioComentario.username }}</h3>
+    <ul class="nav navbar-nav navbar-left">
+          <li class="mseccion">&nbsp&nbsp</li> <!-- dejar o sacar? -->
+          <li class="mseccion"><i class="fa fa-calendar"></i> {{ comentario.fechaComentario }}</li>
+      </ul>
+      <br>
+    </div>
+      <div class="panel-body">
+        <h5>{{ comentario.contenidoComentario }}</h5>
+      </div>
+  </div>
+
+{% if request.user.is_authenticated %}
+  <form class="form-horizontal"  action="{% url 'verpublicacion' publicacion.idPublicacion %}" method="POST" >
+    {% csrf_token%}
+    <div class="col-md-5 main-section" >
+      <div class="form-group">
+        <label for="contenidoComentario">Deja un comentario:</label>
+        <br>
+        {{form.ContenidoComentario}}
+      </div>
+      <div align="center">
+        <button class="btn btnprimary" type="submit" name="action" value="Publicar">Publicar Comentario
+        </button>
+      </div>
+    </div>
+  </form>
+{% else %}
+  <p>¿Quieres hacer un comentario? Inicia sesión o registrate.
+{% endif %}
+
 {% endblock%}
 
 {% endblock %}
 </html>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><a href="{% url 'verpublicacion' pk=publicaciones.idPublicacion %}"><h3>{{ publicaciones.tituloPublicacion }}</h3></a>
+      <ul class="nav navbar-nav navbar-left">
+          <li class="mseccion"><i class="fa fa-user"></i> {{ publicaciones.idUsuarioPublicacion.username }}
+            </li>
+            <li class="mseccion">&nbsp&nbsp</li>
+            <li class="mseccion"><i class="fa fa-calendar"></i> {{ publicaciones.FechaPublicacion }}</li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="mseccion"><i class="fa fa-shopping-cart"></i> ${{ publicaciones.precio }}</li>
+        </ul>
+        <br>
+      </div>
+        <div class="panel-body">
+          <h5>{{ publicaciones.Contenido }}</h5>
+        </div>
+    </div>
