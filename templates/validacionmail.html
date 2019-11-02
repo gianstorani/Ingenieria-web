@@ -1,18 +1,19 @@
 {% extends 'base.html'%}
 {% load static %}
 {%load staticfiles%}
-{% block content %} 
+{% block content %}
 <head>
     <title>Mi primer Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/index.css' %}">
 </head>
 <body>
-	<div> 
+	<div>
 		<h1>VERIFIQUE SU CORREO</h1>
 	</div>
 	<form action="/portada">
 		<button type="submit" class="btn btn-primary"> Volver al login</button>
-	</form> 
-</body>	
+	</form>
+</body>
 
-{% endblock %} 
+{% endblock %}

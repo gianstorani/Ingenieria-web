@@ -10,8 +10,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/editarpublicacion.css' %}">
 </head>
+
 
 <form class="form-horizontal" action="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}" method="POST" enctype="multipart/form-data">
   {% csrf_token%}
@@ -28,10 +30,10 @@
       <label for="precio">Precio ($ por día)</label>
       <input name="precio"  type="text" value="{{publicacion.precio}}">
     </div>
-    <div class="form-group"for="Contenido" >Descripcion</label>
-      <input name="contenido"  type="text" value="{{publicacion.contenido}}">
+    <div class="form-group"for="contenido" >Descripcion</label>
+      <input name="contenido"  type="text" value="{{publicacion.Contenido}}">
     </div>
-    <div class="form-group"for="Imagen" >Imágenes</label> >
+    <div class="form-group"for="Imagen" >Imágenes</label>
       <img src="/media/{{publicacion.imagen}}" class="thumbnail" alt="image">
     </div>
   </div>

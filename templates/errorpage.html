@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+{% load static %}
+{%load staticfiles%}
+{% block navbar%}
+{% endblock %}
+{% block content %}
+{% load staticfiles %}
+<head>
+    <title>Página de Error</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/errorpage.css' %}">
+</head>
+<body>
+  <img src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/256/shield-error-icon.png" >
+  <h1>Parece que has llegado
+  <br> a una página que no debías...</h1>
+  <div>
+    <form method="GET" action="/portada">
+      <button  class="btn btn-lg btn-primary">Mejor llévenme a la portada!</button>
+    </form>
+  </div>
+</body>
+
+{% endblock %}﻿

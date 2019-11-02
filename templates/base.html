@@ -14,22 +14,22 @@
         <a class="navbar-brand page-scroll" href="/portada">AlquileresYA</a>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="/nuevapublicacion" class="nav-link">Publicar Aviso!</a></li > 
-                {% if request.user.is_authenticated %} 
+                <li><a href="/nuevapublicacion" class="nav-link">Publicar Aviso!</a></li >
+                {% if request.user.is_authenticated %}
                     <li><a href="/mispublicaciones/{{id}}" class="nav-link">Mis publicaciones</a></li>
-                {% endif %} 
+                {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if request.user.is_authenticated %} 
-                    {% if request.user.is_superuser%}  
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser%}
                         <li><a href="/admin/auth/user" class="nav-link">Administrador</a></li>
                         <li><a href="/editarusuario/{{id}}" class="nav-link">Tu cuenta: {{request.user.username}}</a></li>
                     <li><a href="/logout/" class="nav-link">Salir</a></li>
                     {% else %}
-                        <li><a href="#" class="nav-link">Mis publicaciones</a></li>                       
+                        <li><a href="#" class="nav-link">Mis publicaciones</a></li>
                         <li><a href="/editarusuario/" class="nav-link">Tu cuenta: {{request.user.username}}</a></li>
                         <li><a href="/logout/" class="nav-link">Salir</a></li>
-                    {% endif %} 
+                    {% endif %}
                 {% else %}
                     <li><a href="/login/" class="nav-link">Ingresar</a></li>
                     <li><a href="/registrar/" class="nav-link">Registrarse</a></li>
@@ -37,9 +37,9 @@
             </ul>
         </div>
     </nav>
-    
+
     {% block content %}
-    
+
     {% endblock %}
 
 

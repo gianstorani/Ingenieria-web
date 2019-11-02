@@ -10,14 +10,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/verpublicacion.css' %}">
 </head>
 
+<body>
 <div class="container-fluid">
   <div class="row">
     <form class="form-horizontal"  method="GET" >
       {% csrf_token%}
-        <div class="col-md-5 main-section" >
+        <div class="col-md-5 main-section">
         <div class="form-group">
           <label for="tipoPublicacion">Categoría</label>
           <br>
@@ -45,12 +47,19 @@
           <br>
           <img src="/media/{{publicacion.imagen}}" class="thumbnail" alt="image">
         </div>
-        <button class="btn btnprimary" name="action" value="EditarPublicacion"><a href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
-
+        {% if request.user == user %}
+        <div>
+          <button class="btn btnprimary" name="action" value="EditarPublicacion">
+            <a href="{% url 'editarpublicacion' pk=publicacion.idPublicacion %}">Editar Publicación
+            </a>
+          </button>
+        </div>
+        {% endif %}
 
       </div>
       <div class="col-md-1">
       </div>
+
       <div class="col-md-5" >
         <div>
           <div class="col-md-5 modal-content">
@@ -89,77 +98,63 @@
   </div>
 </div>
 
-
-{% for comentario in publicacion.comentario_set.all%}
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <ul class="nav navbar-nav navbar-left">
-        <li class="mseccion"><i class="fa fa-user"></i> {{ comentario.idUsuarioComentario.username }}</li>
-        <li class="mseccion">&nbsp&nbsp</li> <!-- dejar o sacar? -->
-        <li class="mseccion"><i class="fa fa-calendar"></i> {{ comentario.fechaComentario }}</li>
-      </ul>
-      <br>
-    </div>
-    <div class="panel-body">
-      <h5>{{ comentario.contenidoComentario }}</h5>
-    </div>
-    <div class="panel-footer">
-      <ul class= "nav navbar-nav navbar-right">
-        <li class=mseccion><label>label</label></li>
-      </ul>
-    </div>
-  </div>
-{% for respuesta in comentario.respuesta_set.all%}
-  <label>label</label>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <ul class="nav navbar-nav navbar-left">
-        <li class="mseccion"><i class="fa fa-user"></i> {{ respuesta.idUsuario.username }}</li>
-        <li class="mseccion">&nbsp&nbsp</li> <!-- dejar o sacar? -->
-        <li class="mseccion"><i class="fa fa-calendar"></i> {{ respuesta.fechaAltaRespuesta }}</li>
-      </ul>
-      <br>
-    </div>
-    <div class="panel-body">
-      <h5>{{ respuesta.contenidoRespuesta }}</h5>
-    </div>
-  </div>
-{% endfor %}
-{% endfor %}
-
-
-<div class="panel panel-default">
-  <div class="panel-heading"><h3>{{ comentario.idUsuarioComentario.username }}</h3>
-    <ul class="nav navbar-nav navbar-left">
+<div id="comentarios" align=center>
+  {% for comentario in publicacion.comentario_set.all%}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <ul class="nav navbar-nav navbar-left">
+          <li class="mseccion"><i class="fa fa-user"></i> {{ comentario.idUsuarioComentario.username }}</li>
           <li class="mseccion">&nbsp&nbsp</li> <!-- dejar o sacar? -->
           <li class="mseccion"><i class="fa fa-calendar"></i> {{ comentario.fechaComentario }}</li>
-      </ul>
-      <br>
-    </div>
+        </ul>
+        <br>
+      </div>
       <div class="panel-body">
         <h5>{{ comentario.contenidoComentario }}</h5>
       </div>
-  </div>
-
-{% if request.user.is_authenticated %}
-  <form class="form-horizontal"  action="{% url 'verpublicacion' publicacion.idPublicacion %}" method="POST" >
-    {% csrf_token%}
-    <div class="col-md-5 main-section" >
-      <div class="form-group">
-        <label for="contenidoComentario">Deja un comentario:</label>
-        <br>
-        {{form.ContenidoComentario}}
-      </div>
-      <div align="center">
-        <button class="btn btnprimary" type="submit" name="action" value="Publicar">Publicar Comentario
-        </button>
+      <div class="panel-footer">
+        <ul class= "nav navbar-nav navbar-right">
+          <li class=mseccion><label>label</label></li>
+        </ul>
       </div>
     </div>
-  </form>
-{% else %}
-  <p>¿Quieres hacer un comentario? Inicia sesión o registrate.
-{% endif %}
+    {% for respuesta in comentario.respuesta_set.all%}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <ul class="nav navbar-nav navbar-left">
+            <li class="mseccion"><i class="fa fa-user"></i> {{ respuesta.idUsuario.username }}</li>
+            <li class="mseccion">&nbsp&nbsp</li> <!-- dejar o sacar? -->
+            <li class="mseccion"><i class="fa fa-calendar"></i> {{ respuesta.fechaAltaRespuesta }}</li>
+          </ul>
+          <br>
+        </div>
+        <div class="panel-body">
+          <h5>{{ respuesta.contenidoRespuesta }}</h5>
+        </div>
+      </div>
+    {% endfor %}
+  {% endfor %}
 
+  <div id="publicarcomentario">
+  {% if request.user.is_authenticated %}
+    <form class="form-horizontal"  action="{% url 'verpublicacion' publicacion.idPublicacion %}" method="POST">
+      {% csrf_token%}
+        <div class="form-group">
+          <label for="contenidoComentario">Deja un comentario:</label>
+          <br>
+          {{form.ContenidoComentario}}
+        </div>
+        <div align="center">
+          <button class="btn btnprimary" type="submit" name="action" value="Publicar">Publicar Comentario
+          </button>
+        </div>
+    </form>
+  </div>
+  {% else %}
+    <p>¿Quieres hacer un comentario? Inicia sesión o registrate.
+  {% endif %}
+</div>
+</body>
 {% endblock%}
 
 {% endblock %}

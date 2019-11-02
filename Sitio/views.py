@@ -91,24 +91,33 @@ def editarpublicacion(request,pk):
 	_idPublicacion = pk
 	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
 
-	if request.method == 'POST':
-		form = PublicacionForm(request.POST)
-		tipoPublicacion = request.POST['tipoPublicacion']
-		tituloPublicacion = request.POST['tituloPublicacion']
-		precio = request.POST['precio']
-		contenido = request.POST['contenido']
+	if request.user == publicacion.idUsuarioPublicacion:
 
-		publicacion.tipoPublicacion = tipoPublicacion
-		publicacion.tituloPublicacion = tituloPublicacion
-		publicacion.precio = precio
-		publicacion.contenido = contenido
-		publicacion.save()
+		if request.method == 'POST':
+			form = PublicacionForm(request.POST)
+			tipoPublicacion = request.POST['tipoPublicacion']
+			tituloPublicacion = request.POST['tituloPublicacion']
+			precio = request.POST['precio']
+			contenido = request.POST['contenido']
 
-		return HttpResponseRedirect('/editarpublicacion/%s' %pk  )
+			publicacion.tipoPublicacion = tipoPublicacion
+			publicacion.tituloPublicacion = tituloPublicacion
+			publicacion.precio = precio
+			publicacion.Contenido = contenido
+			publicacion.save()
+
+			return HttpResponseRedirect('/editarpublicacion/%s' %pk  )
+
+		else:
+			usuario = publicacion.idUsuarioPublicacion
+			perfilUsuario = Perfil.objects.all().filter(usuario = usuario).first()
+
+		return render(request, 'editarpublicacion.html',
+		{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})
 
 	else:
-		usuario = publicacion.idUsuarioPublicacion
-		perfilUsuario = Perfil.objects.all().filter(usuario = usuario).first()
 
-	return render(request, 'editarpublicacion.html',
-	{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})
+		return HttpResponseRedirect("/errorpage")
+
+def errorpage(request):
+	return render(request, 'errorpage.html')
