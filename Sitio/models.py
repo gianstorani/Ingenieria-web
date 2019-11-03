@@ -70,14 +70,20 @@ class Respuesta(models.Model):
 	def __str__(self):
 		return self.contenidoRespuesta
 
-class Puntaje(models.Model):
+class PuntajePositivo(models.Model):
     idPublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
     idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    RATING_CHOICES = ((1, 'uno'), (2, 'dos'), (3, 'tres'), (4, 'cuatro'), (5, 'cinco'))
-    #puntos = models.PositiveSmallIntegerField('Rating (stars)', null=True, blank=True, choices=RATING_CHOICES)
 
     def __str__(self):
-        return self.contenidoPuntaje
+        return self.contenidoPuntajePositivo
+
+class PuntajeNegativo(models.Model):
+    idPublicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE)
+    idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.contenidoPuntajeNegativo
+
 
 class Denuncia(models.Model):
     idUsuario = models.ForeignKey(User, on_delete=models.CASCADE)

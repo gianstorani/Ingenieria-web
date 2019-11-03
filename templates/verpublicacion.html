@@ -12,10 +12,11 @@
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'static/css/verpublicacion.css' %}">
+
 </head>
 
 <body>
-<div class="container-fluid">
+  <div class="container-fluid">
   <div class="row">
     <form class="form-horizontal"  method="GET" >
       {% csrf_token%}
@@ -115,6 +116,9 @@
       <div class="panel-footer">
         <ul class= "nav navbar-nav navbar-right">
           <li class=mseccion><label>label</label></li>
+          <li class=mseccion>
+            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#basicModal">Click to open Modal</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -159,21 +163,3 @@
 
 {% endblock %}
 </html>
-
-<div class="panel panel-default">
-    <div class="panel-heading"><a href="{% url 'verpublicacion' pk=publicaciones.idPublicacion %}"><h3>{{ publicaciones.tituloPublicacion }}</h3></a>
-      <ul class="nav navbar-nav navbar-left">
-          <li class="mseccion"><i class="fa fa-user"></i> {{ publicaciones.idUsuarioPublicacion.username }}
-            </li>
-            <li class="mseccion">&nbsp&nbsp</li>
-            <li class="mseccion"><i class="fa fa-calendar"></i> {{ publicaciones.FechaPublicacion }}</li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="mseccion"><i class="fa fa-shopping-cart"></i> ${{ publicaciones.precio }}</li>
-        </ul>
-        <br>
-      </div>
-        <div class="panel-body">
-          <h5>{{ publicaciones.Contenido }}</h5>
-        </div>
-    </div>
