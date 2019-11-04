@@ -6,8 +6,13 @@ from Login.models import Perfil
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
+from rest_framework import viewsets
+from ProyectoAlquileres.serializers import PublicacionSerializer
 
 # Create your views here.
+class PublicacionesSet(viewsets.ModelViewSet):
+	queryset = Publicacion.objects.all()#.order_by('FechaPublicacion')
+	serializer_class = PublicacionSerializer
 
 @login_required
 def nuevapublicacion(request):

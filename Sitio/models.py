@@ -47,6 +47,8 @@ class Publicacion(models.Model):
     def get_absolute_url(self):
         return reverse ('nuevapublicacion', args=[str(self.idPublicacion)])
 
+    class Meta:
+        ordering = ('idPublicacion')
 
 class Comentario(models.Model):
     idComentario = models.AutoField(primary_key = True)

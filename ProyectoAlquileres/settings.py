@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Login',
     'Sitio',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -157,3 +158,8 @@ DEFAULT_FROM_EMAIL  = 'AlquieresYA'
 django_heroku.settings(locals())
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#REST_FRAMEWORK = (
+#    'DEFALUT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#    'PAGE_SIZE': 10
+#)
