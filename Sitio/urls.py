@@ -14,5 +14,7 @@ urlpatterns = [
     url('mispublicaciones/', views.mispublicaciones, name='mispublicaciones'),
     url(r'^verpublicacion/(?P<pk>[0-9]+)/$', views.verpublicacion, name='verpublicacion'),
 	url(r'^editarpublicacion/(?P<pk>[0-9]+)/$', views.editarpublicacion, name='editarpublicacion'),
-	url('errorpage/', views.errorpage, name='errorpage')
+	url(r'^respondercomentario/(?P<pk>[0-9]+)/$', views.respondercomentario, name='respondercomentario'),
+	url('errorpage/', views.errorpage, name='errorpage'),
+	#url(r'dislike/(?P<pk>[0-9]+)/$', views.dislike, name='dislike')
 ]

@@ -1,11 +1,16 @@
 from django.shortcuts import render
-from .forms import PublicacionForm, ComentarioForm
+from .forms import PublicacionForm, ComentarioForm, RespuestaForm
 from django.contrib.auth.decorators import login_required
-from .models import Publicacion, Comentario
+from .models import Publicacion, Comentario, Respuesta, PuntajeNegativo, PuntajePositivo
 from Login.models import Perfil
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
+try:
+    from django.utils import simplejson as json
+except ImportError:
+    import json
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 
@@ -79,11 +84,14 @@ def verpublicacion(request,pk):
 
 		form = ComentarioForm()
 
+		puntajepositivo = PuntajePositivo.objects.all().filter(idPublicacion = publicacion).count()
+		puntajenegativo = PuntajeNegativo.objects.all().filter(idPublicacion = publicacion).count()
 		usuario = publicacion.idUsuarioPublicacion
 		perfilUsuario = Perfil.objects.all().filter(usuario = usuario).first()
 
 		return render(request, 'verpublicacion.html',
-		{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})
+		{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario,
+		'puntajepositivo': puntajepositivo, 'puntajenegativo' : puntajenegativo})
 
 def editarpublicacion(request,pk):
 	model = Publicacion
@@ -92,31 +100,57 @@ def editarpublicacion(request,pk):
 	publicacion = Publicacion.objects.all().filter(idPublicacion = _idPublicacion).first()
 
 	if request.user == publicacion.idUsuarioPublicacion:
-
 		if request.method == 'POST':
 			form = PublicacionForm(request.POST)
 			tipoPublicacion = request.POST['tipoPublicacion']
 			tituloPublicacion = request.POST['tituloPublicacion']
 			precio = request.POST['precio']
 			contenido = request.POST['contenido']
-
 			publicacion.tipoPublicacion = tipoPublicacion
 			publicacion.tituloPublicacion = tituloPublicacion
 			publicacion.precio = precio
 			publicacion.Contenido = contenido
 			publicacion.save()
-
-			return HttpResponseRedirect('/editarpublicacion/%s' %pk  )
-
+			return HttpResponseRedirect('/verpublicacion/%s' %pk  )
 		else:
 			usuario = publicacion.idUsuarioPublicacion
 			perfilUsuario = Perfil.objects.all().filter(usuario = usuario).first()
 
-		return render(request, 'editarpublicacion.html',
-		{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})
-
+			return render(request, 'editarpublicacion.html',
+			{'publicacion': publicacion,'form': form,'user': usuario, 'perfil': perfilUsuario})
 	else:
+		return HttpResponseRedirect("/errorpage")
 
+def respondercomentario(request,pk):
+	model = Respuesta
+	_idComentario = pk
+	comentario = Comentario.objects.all().filter(idComentario = _idComentario).first()
+
+	if request.user == comentario.idPublicacion.idUsuarioPublicacion:
+		if request.method == 'POST':
+			model = Respuesta
+			idUsuario = request.user
+			contenidoRespuesta = request.POST.get('ContenidoRespuesta')
+			respuesta = Respuesta(
+	            idComentario = comentario,
+	            idUsuario = idUsuario,
+	            contenidoRespuesta = contenidoRespuesta
+	        )
+			respuesta.save()
+
+			pk = comentario.idPublicacion.idPublicacion
+			return HttpResponseRedirect('/verpublicacion/%s' %pk )
+
+		else:
+			form = RespuestaForm()
+
+			comentario = Comentario.objects.all().filter(idComentario = pk).first()
+			usuario = comentario.idUsuarioComentario
+			publicacion = comentario.idPublicacion
+
+			return render(request, 'respondercomentario.html',
+	        { 'form': form ,'usuario': usuario, 'comentario': comentario, 'publicacion': publicacion})
+	else:
 		return HttpResponseRedirect("/errorpage")
 
 def errorpage(request):

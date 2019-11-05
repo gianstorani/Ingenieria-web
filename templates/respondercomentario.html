@@ -1,0 +1,71 @@
+{% extends 'base.html'%}
+{% load static %}
+{%load staticfiles%}
+{% block navbar%}
+{% endblock %}
+{% block content %}
+{% load staticfiles %}
+<head>
+    <title>Responder Comentario</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'static/css/respondercomentario.css' %}">
+</head>
+<body>
+	<div>
+		<h1>Hola {{request.user.first_name}}!! Responde al comentario</h1>
+		{% csrf_token %}
+	</div>
+
+	<div>
+		<div class="panel panel-default">
+   			<div class="panel-heading">
+          <a href="{% url 'verpublicacion' pk=publicacion.idPublicacion %}">
+          <h3>{{ publicacion.tituloPublicacion }}</h3>
+          </a>
+		        <ul class="nav navbar-nav navbar-right">
+		            <li class="mseccion"><i class="fa fa-shopping-cart"></i> ${{ publicacion.precio }}</li>
+		        </ul>
+		        <br>
+	        </div>
+        </div>
+	</div>
+
+  <div>
+		<div class="panel panel-default">
+
+   			<div class="panel-heading">
+        	<ul class="nav navbar-nav navbar-left">
+       				<li class="mseccion"><i class="fa fa-user"></i> {{usuario.username }}
+		            </li>
+		            <li class="mseccion">&nbsp&nbsp</li>
+		            <li class="mseccion"><i class="fa fa-calendar"></i> {{ comentario.fechaComentario }}</li>
+		        </ul>
+		        <br>
+	        </div>
+           	<div class="panel-body">
+            	<h5>{{ comentario.contenidoComentario }}</h5>
+            </div>
+        </div>
+	</div>
+
+  <div id="publicarrespuesta">
+    <form class="form-horizontal"  action="{% url 'respondercomentario' comentario.idComentario %}" method="POST">
+      {% csrf_token%}
+      <div class="form-group">
+        <label for="contenidoRespuesta">¿Quieres responder este comentario?</label>
+        <br>
+        {{form.ContenidoRespuesta}}
+      </div>
+      <div align="center">
+        <button class="btn btnprimary" type="submit" name="action" value="Publicar">Publicar Respuesta
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+
+{% endblock %}﻿

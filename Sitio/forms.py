@@ -30,3 +30,6 @@ class PublicacionForm(forms.Form):
 
 class ComentarioForm(forms.Form):
     ContenidoComentario = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={"rows":10, "cols":20,'class' : 'validate form-control'}))
+
+class RespuestaForm(forms.Form):
+    ContenidoRespuesta = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={"rows":10, "cols":20,'class' : 'validate form-control'}))

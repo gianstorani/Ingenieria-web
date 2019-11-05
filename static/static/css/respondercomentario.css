@@ -1,0 +1,21 @@
+.mseccion{
+    text-align: right;
+}
+
+.panel{
+	width: 60%;
+	margin-left: 300px;
+}
+
+#publicarrespuesta{
+  width: 60%;
+	justify-content: center;
+  text-align: left;
+}
+
+
+
+
+li{
+	list-style:none;
+}
