@@ -3,9 +3,12 @@ from django.urls import path
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework import routers
 from . import views
 from .views import *
 
+router = routers.DefaultRouter()
+router.register(r'publicaciones', views.PpublicacionesSet)
 
 urlpatterns = [
 	url(r'^$', views.portada, name='portada'),
@@ -17,4 +20,6 @@ urlpatterns = [
 	url(r'^respondercomentario/(?P<pk>[0-9]+)/$', views.respondercomentario, name='respondercomentario'),
 	url('errorpage/', views.errorpage, name='errorpage'),
 	#url(r'dislike/(?P<pk>[0-9]+)/$', views.dislike, name='dislike')
+	path('',include(router.urls)),
+	path('api-auth/', include('rest_framework.urls', namespace= 'rest_framework'))
 ]

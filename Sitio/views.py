@@ -11,8 +11,14 @@ try:
 except ImportError:
     import json
 from django.views.decorators.http import require_POST
+from django.http import HttpResponseRedirect
+from rest_framework import viewsets
+from ProyectoAlquileres.serializers import PublicacionSerializer
 
 # Create your views here.
+class PublicacionesSet(viewsets.ModelViewSet):
+	queryset = Publicacion.objects.all()#.order_by('FechaPublicacion')
+	serializer_class = PublicacionSerializer
 
 @login_required
 def nuevapublicacion(request):
